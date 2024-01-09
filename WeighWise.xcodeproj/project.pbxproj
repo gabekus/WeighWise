@@ -1,0 +1,461 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5C0DAE532B4CFA1F00268631 /* WeighWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE522B4CFA1F00268631 /* WeighWiseApp.swift */; };
+		5C0DAE552B4CFA1F00268631 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE542B4CFA1F00268631 /* ContentView.swift */; };
+		5C0DAE592B4CFA2100268631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE582B4CFA2100268631 /* Assets.xcassets */; };
+		5C0DAE5C2B4CFA2100268631 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE5B2B4CFA2100268631 /* Preview Assets.xcassets */; };
+		5C0DAE632B4CFA7700268631 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE622B4CFA7700268631 /* Constants.swift */; };
+		5C0DAE672B4CFA8000268631 /* WeightEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE652B4CFA8000268631 /* WeightEntryView.swift */; };
+		5C0DAE682B4CFA8000268631 /* EntryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE662B4CFA8000268631 /* EntryButton.swift */; };
+		5C0DAE732B4CFA8D00268631 /* Japandi Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6A2B4CFA8D00268631 /* Japandi Regular.otf */; };
+		5C0DAE742B4CFA8D00268631 /* Japandi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6B2B4CFA8D00268631 /* Japandi-Light.otf */; };
+		5C0DAE752B4CFA8D00268631 /* Japandi Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6C2B4CFA8D00268631 /* Japandi Bold.otf */; };
+		5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6E2B4CFA8D00268631 /* Weight.swift */; };
+		5C0DAE772B4CFA8D00268631 /* WeightChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6F2B4CFA8D00268631 /* WeightChartView.swift */; };
+		5C0DAE782B4CFA8D00268631 /* DayBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE712B4CFA8D00268631 /* DayBubble.swift */; };
+		5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE722B4CFA8D00268631 /* WeekView.swift */; };
+		5C0DAE7B2B4CFAA500268631 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7A2B4CFAA500268631 /* README.md */; };
+		5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5C0DAE4F2B4CFA1F00268631 /* WeighWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeighWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C0DAE522B4CFA1F00268631 /* WeighWiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeighWiseApp.swift; sourceTree = "<group>"; };
+		5C0DAE542B4CFA1F00268631 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5C0DAE582B4CFA2100268631 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5C0DAE5B2B4CFA2100268631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5C0DAE622B4CFA7700268631 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5C0DAE652B4CFA8000268631 /* WeightEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightEntryView.swift; sourceTree = "<group>"; };
+		5C0DAE662B4CFA8000268631 /* EntryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryButton.swift; sourceTree = "<group>"; };
+		5C0DAE6A2B4CFA8D00268631 /* Japandi Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi Regular.otf"; sourceTree = "<group>"; };
+		5C0DAE6B2B4CFA8D00268631 /* Japandi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi-Light.otf"; sourceTree = "<group>"; };
+		5C0DAE6C2B4CFA8D00268631 /* Japandi Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi Bold.otf"; sourceTree = "<group>"; };
+		5C0DAE6E2B4CFA8D00268631 /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
+		5C0DAE6F2B4CFA8D00268631 /* WeightChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightChartView.swift; sourceTree = "<group>"; };
+		5C0DAE712B4CFA8D00268631 /* DayBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayBubble.swift; sourceTree = "<group>"; };
+		5C0DAE722B4CFA8D00268631 /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
+		5C0DAE7A2B4CFAA500268631 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5C0DAE7C2B4CFCC600268631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		5C0DAE812B4D6E0C00268631 /* WeighWise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeighWise.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5C0DAE4C2B4CFA1F00268631 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5C0DAE462B4CFA1F00268631 = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE7A2B4CFAA500268631 /* README.md */,
+				5C0DAE512B4CFA1F00268631 /* WeighWise */,
+				5C0DAE502B4CFA1F00268631 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5C0DAE502B4CFA1F00268631 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE4F2B4CFA1F00268631 /* WeighWise.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5C0DAE512B4CFA1F00268631 /* WeighWise */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE812B4D6E0C00268631 /* WeighWise.entitlements */,
+				5C0DAE7E2B4D5F0A00268631 /* Views */,
+				5C0DAE692B4CFA8D00268631 /* Fonts */,
+				5C0DAE5A2B4CFA2100268631 /* Preview Content */,
+				5C0DAE582B4CFA2100268631 /* Assets.xcassets */,
+				5C0DAE7C2B4CFCC600268631 /* Info.plist */,
+				5C0DAE622B4CFA7700268631 /* Constants.swift */,
+				5C0DAE6D2B4CFA8D00268631 /* Models */,
+				5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */,
+			);
+			path = WeighWise;
+			sourceTree = "<group>";
+		};
+		5C0DAE5A2B4CFA2100268631 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE5B2B4CFA2100268631 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5C0DAE642B4CFA8000268631 /* WeightEntry */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE652B4CFA8000268631 /* WeightEntryView.swift */,
+				5C0DAE662B4CFA8000268631 /* EntryButton.swift */,
+			);
+			path = WeightEntry;
+			sourceTree = "<group>";
+		};
+		5C0DAE692B4CFA8D00268631 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE6A2B4CFA8D00268631 /* Japandi Regular.otf */,
+				5C0DAE6B2B4CFA8D00268631 /* Japandi-Light.otf */,
+				5C0DAE6C2B4CFA8D00268631 /* Japandi Bold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		5C0DAE6D2B4CFA8D00268631 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE6E2B4CFA8D00268631 /* Weight.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5C0DAE702B4CFA8D00268631 /* Week View */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE712B4CFA8D00268631 /* DayBubble.swift */,
+				5C0DAE722B4CFA8D00268631 /* WeekView.swift */,
+			);
+			path = "Week View";
+			sourceTree = "<group>";
+		};
+		5C0DAE7D2B4D5E0F00268631 /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE542B4CFA1F00268631 /* ContentView.swift */,
+				5C0DAE6F2B4CFA8D00268631 /* WeightChartView.swift */,
+				5C0DAE702B4CFA8D00268631 /* Week View */,
+				5C0DAE642B4CFA8000268631 /* WeightEntry */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
+		5C0DAE7E2B4D5F0A00268631 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE522B4CFA1F00268631 /* WeighWiseApp.swift */,
+				5C0DAE7D2B4D5E0F00268631 /* ContentView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5C0DAE4E2B4CFA1F00268631 /* WeighWise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C0DAE5F2B4CFA2100268631 /* Build configuration list for PBXNativeTarget "WeighWise" */;
+			buildPhases = (
+				5C0DAE4B2B4CFA1F00268631 /* Sources */,
+				5C0DAE4C2B4CFA1F00268631 /* Frameworks */,
+				5C0DAE4D2B4CFA1F00268631 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeighWise;
+			productName = WeighWise;
+			productReference = 5C0DAE4F2B4CFA1F00268631 /* WeighWise.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5C0DAE472B4CFA1F00268631 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					5C0DAE4E2B4CFA1F00268631 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = 5C0DAE4A2B4CFA1F00268631 /* Build configuration list for PBXProject "WeighWise" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5C0DAE462B4CFA1F00268631;
+			productRefGroup = 5C0DAE502B4CFA1F00268631 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5C0DAE4E2B4CFA1F00268631 /* WeighWise */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5C0DAE4D2B4CFA1F00268631 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C0DAE7B2B4CFAA500268631 /* README.md in Resources */,
+				5C0DAE742B4CFA8D00268631 /* Japandi-Light.otf in Resources */,
+				5C0DAE5C2B4CFA2100268631 /* Preview Assets.xcassets in Resources */,
+				5C0DAE732B4CFA8D00268631 /* Japandi Regular.otf in Resources */,
+				5C0DAE592B4CFA2100268631 /* Assets.xcassets in Resources */,
+				5C0DAE752B4CFA8D00268631 /* Japandi Bold.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5C0DAE4B2B4CFA1F00268631 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C0DAE682B4CFA8000268631 /* EntryButton.swift in Sources */,
+				5C0DAE552B4CFA1F00268631 /* ContentView.swift in Sources */,
+				5C0DAE672B4CFA8000268631 /* WeightEntryView.swift in Sources */,
+				5C0DAE532B4CFA1F00268631 /* WeighWiseApp.swift in Sources */,
+				5C0DAE782B4CFA8D00268631 /* DayBubble.swift in Sources */,
+				5C0DAE632B4CFA7700268631 /* Constants.swift in Sources */,
+				5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */,
+				5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */,
+				5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */,
+				5C0DAE772B4CFA8D00268631 /* WeightChartView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5C0DAE5D2B4CFA2100268631 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5C0DAE5E2B4CFA2100268631 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5C0DAE602B4CFA2100268631 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeighWise/WeighWise.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WeighWise/Preview Content\"";
+				DEVELOPMENT_TEAM = 948JHP35FF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeighWise/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = WeighWise.WeighWise;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5C0DAE612B4CFA2100268631 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeighWise/WeighWise.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WeighWise/Preview Content\"";
+				DEVELOPMENT_TEAM = 948JHP35FF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeighWise/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = WeighWise.WeighWise;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5C0DAE4A2B4CFA1F00268631 /* Build configuration list for PBXProject "WeighWise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C0DAE5D2B4CFA2100268631 /* Debug */,
+				5C0DAE5E2B4CFA2100268631 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C0DAE5F2B4CFA2100268631 /* Build configuration list for PBXNativeTarget "WeighWise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C0DAE602B4CFA2100268631 /* Debug */,
+				5C0DAE612B4CFA2100268631 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5C0DAE472B4CFA1F00268631 /* Project object */;
+}
