@@ -8,5 +8,7 @@
 		<string>Japandi-Light.otf</string>
 		<string>Japandi Bold.otf</string>
 	</array>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>Ingest weight from Health</string>
 </dict>
 </plist>

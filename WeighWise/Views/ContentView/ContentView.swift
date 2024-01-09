@@ -34,7 +34,7 @@ struct ContentView: View {
                     VStack {
                         WeightChartView()
                     }.tabItem {
-                        Image(systemName: "chart.bar.fill").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                        Image(systemName: "chart.bar.fill")
                     }
                 }
             } else {
