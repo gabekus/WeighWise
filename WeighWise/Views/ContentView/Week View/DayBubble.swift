@@ -16,12 +16,12 @@ struct DayBubble: View {
     
     var body: some View {
         VStack {
-                Text("\(dayOfWeekString(dayOfWeek))")
-                    .font(.custom("JapandiRegular", size: 8))
-                    .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? "JapandiGreen" : "JapandiLightGray"))
+            Text("\(dayOfWeekString(dayOfWeek))")
+                .font(.custom("JapandiRegular", size: 8))
+                .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? "JapandiGreen" : "JapandiLightGray"))
             Circle()
                 .frame(width: diameter)
-                .foregroundColor(Color(weight.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? "JapandiRed" : "JapandiLightBrown" : "JapandiGreen"))
+                .foregroundColor(weight.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? .japandiRed : .japandiLightBrown : .japandiGreen)
                 .overlay(
                     (weight.weight == NONEXISTENT_WEIGHT ? Text(" ") : getOverlayText(weight.weight))
                         .overlay(
@@ -59,7 +59,7 @@ func getOverlayText(_ weight: Float) -> Text {
 func dayOfWeekString(_ day: Int) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
-
+    
     if let date = Calendar.current.date(bySetting: .weekday, value: day, of: Date()) {
         return dateFormatter.string(from: date).first.map(String.init) ?? ""
     }

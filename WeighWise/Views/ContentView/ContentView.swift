@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import HealthKit
+import ConfettiSwiftUI
 
 struct ContentView: View {
     
@@ -8,7 +9,9 @@ struct ContentView: View {
     @State private var isWeightLoggedToday: Bool = false
     @State private var selectedTab: Int = 1
     @Query private var weights: [Weight] = []
+    @State private var counter: Int = 0
     @Environment(\.scenePhase) private var scenePhase
+    
     private let healthKitManager = HealthKitManager()
     
     init() {
@@ -23,41 +26,50 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            if true {
-                TabView(selection: $selectedTab) {
-                    VStack {
-                        WeightChartView()
-                    }.tabItem {
-                        Image(systemName: "chart.bar.fill")
-                    }.tag(0)
-                    VStack {
-                        WeekView()
-                    }.tag(1)
-                        .tabItem {
-                            Image(systemName: "dumbbell.fill")
-                        }
-                    VStack {
-                        OnboardingView()
-                    }.tag(2)
-                        .tabItem {
-                            Image(systemName: "hand.tap")
-                        }
+        ZStack {
+            VStack {
+                if isWeightLoggedToday {
+                    TabView(selection: $selectedTab) {
+                        VStack {
+                            WeightChartView()
+                        }.tabItem {
+                            Image(systemName: "chart.bar.fill")
+                        }.tag(0)
+                        VStack {
+                            WeekView()
+                        }.tag(1)
+                            .tabItem {
+                                Image(systemName: "dumbbell.fill")
+                            }
+                        VStack {
+                            OnboardingView()
+                        }.tag(2)
+                            .tabItem {
+                                Image(systemName: "hand.tap")
+                            }
+                    }
+                } else {
+                    WeightEntryView(headerText: "Enter Weight") { weight in
+                        isWeightLoggedToday = true
+                        addWeight(weight)
+                        //                    if Calendar.current.component(.weekday, from: Date()) == 7 {
+                        counter += 1
+                        //                    }
+                    }
                 }
-            } else {
-                WeightEntryView(headerText: "Enter Weight") { weight in
-                    isWeightLoggedToday = true
-                    addWeight(weight)
-                }
+                
+                
             }
+            
+            .onAppear {
+                isWeightLoggedToday = getIsWeightLoggedToday(weights)
+            }
+            .onChange(of: scenePhase) { oldScenePhase, newScenePhase in
+                isWeightLoggedToday = getIsWeightLoggedToday(weights)
+            }
+            EmptyView()
+                .confettiCannon(counter: $counter, colors: [.japandiGreen, .japandiRed, .japandiYellow, .japandiMintGreen])
         }
-        .onAppear {
-            isWeightLoggedToday = getIsWeightLoggedToday(weights)
-        }
-        .onChange(of: scenePhase) { oldScenePhase, newScenePhase in
-            isWeightLoggedToday = getIsWeightLoggedToday(weights)
-        }
-        
     }
     
     func addWeight(_ weight: Float) {

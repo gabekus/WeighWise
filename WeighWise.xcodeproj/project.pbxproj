@@ -26,6 +26,7 @@
 		5C9AE1332B4DEBCA0044F8AD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */; };
 		5C9AE1352B4DFDFA0044F8AD /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1342B4DFDFA0044F8AD /* Goal.swift */; };
 		5C9AE13C2B4E0B030044F8AD /* GoalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */; };
+		5C9AE13F2B4E4D400044F8AD /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5C9AE13E2B4E4D400044F8AD /* ConfettiSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C9AE13F2B4E4D400044F8AD /* ConfettiSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +198,9 @@
 			dependencies = (
 			);
 			name = WeighWise;
+			packageProductDependencies = (
+				5C9AE13E2B4E4D400044F8AD /* ConfettiSwiftUI */,
+			);
 			productName = WeighWise;
 			productReference = 5C0DAE4F2B4CFA1F00268631 /* WeighWise.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +229,9 @@
 				Base,
 			);
 			mainGroup = 5C0DAE462B4CFA1F00268631;
+			packageReferences = (
+				5C9AE13D2B4E4D400044F8AD /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+			);
 			productRefGroup = 5C0DAE502B4CFA1F00268631 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -405,6 +413,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeighWise/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -440,6 +449,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeighWise/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -484,6 +494,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5C9AE13D2B4E4D400044F8AD /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5C9AE13E2B4E4D400044F8AD /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C9AE13D2B4E4D400044F8AD /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5C0DAE472B4CFA1F00268631 /* Project object */;
 }

@@ -50,6 +50,21 @@ struct OnboardingView: View {
                         Spacer()
                         HStack {
                             Button {
+                                goalDirection = .WeightLoss
+                                step = .GoalPoundsEntry
+                            } label: {
+                                Text("Lose Weight")
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .font(.custom("JapandiRegular", fixedSize: 18))
+                                    .kerning(2)
+                                    .foregroundColor(.japandiDarkGray)
+                            }
+                            .cornerRadius(.infinity)
+                            .frame(width: 175, height: 45)
+                            .buttonStyle(.borderedProminent)
+                            .tint(.japandiLightGray)
+                            
+                            Button {
                                 goalDirection = .WeightGain
                                 step = .GoalPoundsEntry
                             } label: {
@@ -64,20 +79,6 @@ struct OnboardingView: View {
                             .buttonStyle(.borderedProminent)
                             .tint(.japandiLightBrown)
                             
-                            Button {
-                                goalDirection = .WeightLoss
-                                step = .GoalPoundsEntry
-                            } label: {
-                                Text("Lose Weight")
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .font(.custom("JapandiRegular", fixedSize: 18))
-                                    .kerning(2)
-                                    .foregroundColor(.japandiDarkGray)
-                            }
-                            .cornerRadius(.infinity)
-                            .frame(width: 175, height: 45)
-                            .buttonStyle(.borderedProminent)
-                            .tint(.japandiLightBrown)
                         }
                         Spacer()
                     }
@@ -96,8 +97,9 @@ struct OnboardingView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            Image(systemName: "arrow.\(goals.first!.goalDirection == .WeightGain ? "up" : "down")")
-                            Text(getGoalPoundsPerWeek())
+                            Image(systemName: "arrow.\(goals.first!.goalDirection == .WeightGain ? "up" : "down")").font(.custom("", size: 20))
+                            Text(getGoalPoundsPerWeek()) + Text(" lbs").font(.custom("JapandiRegular", size: 20))
+                                .kerning(1)
                             Spacer()
                         }
                         .font(.custom("JapandiRegular", size: 75))
