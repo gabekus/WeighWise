@@ -84,14 +84,40 @@ struct OnboardingView: View {
                 }
                 
             case .GoalPoundsEntry:
-                WeightEntryView(headerText: "Goal per week to  \(goalDirection == .WeightGain ? "gain" : "lose")(lbs)") { weight in 
+                WeightEntryView(headerText: "Goal per week to  \(goalDirection == .WeightGain ? "gain" : "lose")(lbs)") { weight in
                     goalPoundsPerWeek = weight
                     upsertGoal()
                     step = .Onboarded
                 }
                 
             case .Onboarded:
-                Text("Onboarded")
+                ZStack {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Image(systemName: "arrow.\(goals.first!.goalDirection == .WeightGain ? "up" : "down")")
+                            Text(getGoalPoundsPerWeek())
+                            Spacer()
+                        }
+                        .font(.custom("JapandiRegular", size: 75))
+                        .foregroundColor(.japandiDarkGray)
+                        Spacer()
+                    }
+                    .background(.japandiOffWhite)
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Text("Your Goal")
+                                .font(.custom("JapandiRegular", size: 25))
+                                .foregroundColor(.japandiDarkGray)
+                                .kerning(1)
+                            Spacer()
+                        }
+                        .padding(50)
+                        Spacer()
+                    }
+                }
             }
         }
         .onAppear {
@@ -99,6 +125,10 @@ struct OnboardingView: View {
                 step = .Onboarded
             }
         }
+    }
+    
+    func getGoalPoundsPerWeek() -> String {
+        return formatWeight(goals.first!.goalPoundsPerWeek)
     }
     
     

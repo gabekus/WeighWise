@@ -19,93 +19,101 @@ struct WeightEntryView: View {
     
     
     var body: some View {
-        VStack(alignment: .center) {
-            Text(headerText)
-                .font(.custom("JapandiRegular", size: 25))
-                .kerning(2)
-                .padding(30)
-                .foregroundColor(.japandiLightGray)
-                .multilineTextAlignment(.center)
-            
-            Spacer()
-            
-            Text(weightInput)
-                .font(.custom("JapandiBold", size: 75))
-                .foregroundColor(.japandiDarkGray)
-            
-            if weightInput != "" {
-                Button() {
-                    onSubmit()
-                } label: {
-                    Text("Submit")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .font(.custom("JapandiRegular", fixedSize: 20))
-                        .kerning(2)
-                        .foregroundColor(.japandiDarkGray)
-                }
-                .cornerRadius(.infinity)
-                .frame(width: 350, height: 45)  // Adjust width and height as needed
-                .buttonStyle(.borderedProminent)
-                .tint(.japandiLightBrown)
-            }
-            //            }
+        ZStack {
             VStack {
                 HStack {
-                    EntryButton("1") {
-                        weightInput += "1"
-                    }
-                    EntryButton("2") {
-                        weightInput += "2"
-                    }
-                    EntryButton("3") {
-                        weightInput += "3"
-                    }
+                    Spacer()
+                    Text(headerText)
+                        .font(.custom("JapandiRegular", size: 25))
+                        .kerning(1)
+                        .padding(50)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.japandiDarkGray)
+                    Spacer()
                 }
-                HStack {
-                    EntryButton("4") {
-                        weightInput += "4"
-                    }
-                    EntryButton("5") {
-                        weightInput += "5"
-                    }
-                    EntryButton("6") {
-                        weightInput += "6"
-                    }
-                }
-                HStack {
-                    EntryButton("7") {
-                        weightInput += "7"
-                    }
-                    EntryButton("8") {
-                        weightInput += "8"
-                    }
-                    EntryButton("9") {
-                        weightInput += "9"
-                    }
-                }
-                HStack {
-                    EntryButton(".") {
-                        if !weightInput.contains(".") && weightInput.count > 0 {
-                            weightInput += "."
-                        }
-                    }
-                    EntryButton("0") {
-                        weightInput += "0"
-                    }
-                    
-                    // Left Arrow
-                    EntryButton("\u{2190}") {
-                        if weightInput.count > 0 {
-                            weightInput.removeLast()
-                        }
-                    }
-                }
+                Spacer()
             }
-            .frame(height: 300)
-        }
-        .background(.japandiOffWhite)
-        .onAppear {
+            .background(.japandiOffWhite)
             
+            VStack {
+                Spacer()
+                Text(weightInput)
+                    .font(.custom("JapandiBold", size: 75))
+                    .foregroundColor(.japandiDarkGray)
+                
+                if weightInput != "" {
+                    Button() {
+                        onSubmit()
+                    } label: {
+                        Text("Submit")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .font(.custom("JapandiRegular", fixedSize: 20))
+                            .kerning(2)
+                            .foregroundColor(.japandiDarkGray)
+                    }
+                    .cornerRadius(.infinity)
+                    .frame(width: 350, height: 45)  // Adjust width and height as needed
+                    .buttonStyle(.borderedProminent)
+                    .tint(.japandiLightBrown)
+                }
+                
+                VStack {
+                    HStack {
+                        EntryButton("1") {
+                            weightInput += "1"
+                        }
+                        EntryButton("2") {
+                            weightInput += "2"
+                        }
+                        EntryButton("3") {
+                            weightInput += "3"
+                        }
+                    }
+                    HStack {
+                        EntryButton("4") {
+                            weightInput += "4"
+                        }
+                        EntryButton("5") {
+                            weightInput += "5"
+                        }
+                        EntryButton("6") {
+                            weightInput += "6"
+                        }
+                    }
+                    HStack {
+                        EntryButton("7") {
+                            weightInput += "7"
+                        }
+                        EntryButton("8") {
+                            weightInput += "8"
+                        }
+                        EntryButton("9") {
+                            weightInput += "9"
+                        }
+                    }
+                    HStack {
+                        EntryButton(".") {
+                            if !weightInput.contains(".") && weightInput.count > 0 {
+                                weightInput += "."
+                            }
+                        }
+                        EntryButton("0") {
+                            weightInput += "0"
+                        }
+                        
+                        // Left Arrow
+                        EntryButton("\u{2190}") {
+                            if weightInput.count > 0 {
+                                weightInput.removeLast()
+                            }
+                        }
+                    }
+                }
+                .frame(height: 300)
+            }
+            .onAppear {
+                
+            }
         }
     }
     

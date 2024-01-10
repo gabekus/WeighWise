@@ -54,6 +54,7 @@ struct WeekView: View {
             VStack {
                 Text("This Week's Average").font(.custom("JapandiRegular", size: 25)).foregroundColor(.japandiDarkGray)
                     .padding(50)
+                    .kerning(1)
                 Text("\(formatWeight(weekAverage))").font(.custom("JapandiBold", size: 85)).padding(10)
                     .foregroundColor(.japandiDarkGray)
                 Spacer()
