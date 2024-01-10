@@ -23,6 +23,9 @@
 		5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE722B4CFA8D00268631 /* WeekView.swift */; };
 		5C0DAE7B2B4CFAA500268631 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7A2B4CFAA500268631 /* README.md */; };
 		5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */; };
+		5C9AE1332B4DEBCA0044F8AD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */; };
+		5C9AE1352B4DFDFA0044F8AD /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1342B4DFDFA0044F8AD /* Goal.swift */; };
+		5C9AE13C2B4E0B030044F8AD /* GoalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,9 @@
 		5C0DAE7C2B4CFCC600268631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		5C0DAE812B4D6E0C00268631 /* WeighWise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeighWise.entitlements; sourceTree = "<group>"; };
+		5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		5C9AE1342B4DFDFA0044F8AD /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDirection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,9 @@
 		5C0DAE512B4CFA1F00268631 /* WeighWise */ = {
 			isa = PBXGroup;
 			children = (
+				5C0DAE6D2B4CFA8D00268631 /* Models */,
+				5C9AE13A2B4E0AE50044F8AD /* Enums */,
+				5C9AE1362B4E026B0044F8AD /* Managers */,
 				5C0DAE812B4D6E0C00268631 /* WeighWise.entitlements */,
 				5C0DAE7E2B4D5F0A00268631 /* Views */,
 				5C0DAE692B4CFA8D00268631 /* Fonts */,
@@ -85,8 +94,6 @@
 				5C0DAE582B4CFA2100268631 /* Assets.xcassets */,
 				5C0DAE7C2B4CFCC600268631 /* Info.plist */,
 				5C0DAE622B4CFA7700268631 /* Constants.swift */,
-				5C0DAE6D2B4CFA8D00268631 /* Models */,
-				5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */,
 			);
 			path = WeighWise;
 			sourceTree = "<group>";
@@ -122,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				5C0DAE6E2B4CFA8D00268631 /* Weight.swift */,
+				5C9AE1342B4DFDFA0044F8AD /* Goal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 			children = (
 				5C0DAE542B4CFA1F00268631 /* ContentView.swift */,
 				5C0DAE6F2B4CFA8D00268631 /* WeightChartView.swift */,
+				5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */,
 				5C0DAE702B4CFA8D00268631 /* Week View */,
 				5C0DAE642B4CFA8000268631 /* WeightEntry */,
 			);
@@ -153,6 +162,22 @@
 				5C0DAE7D2B4D5E0F00268631 /* ContentView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5C9AE1362B4E026B0044F8AD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		5C9AE13A2B4E0AE50044F8AD /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,16 +254,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C9AE13C2B4E0B030044F8AD /* GoalDirection.swift in Sources */,
 				5C0DAE682B4CFA8000268631 /* EntryButton.swift in Sources */,
 				5C0DAE552B4CFA1F00268631 /* ContentView.swift in Sources */,
 				5C0DAE672B4CFA8000268631 /* WeightEntryView.swift in Sources */,
 				5C0DAE532B4CFA1F00268631 /* WeighWiseApp.swift in Sources */,
+				5C9AE1352B4DFDFA0044F8AD /* Goal.swift in Sources */,
 				5C0DAE782B4CFA8D00268631 /* DayBubble.swift in Sources */,
 				5C0DAE632B4CFA7700268631 /* Constants.swift in Sources */,
 				5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */,
 				5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */,
 				5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */,
 				5C0DAE772B4CFA8D00268631 /* WeightChartView.swift in Sources */,
+				5C9AE1332B4DEBCA0044F8AD /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

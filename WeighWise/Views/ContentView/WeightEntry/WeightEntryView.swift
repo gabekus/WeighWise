@@ -9,27 +9,31 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct WeightEntry: View {
+struct WeightEntryView: View {
     @Environment(\.modelContext) private var context
-    @State private var weightInput: String = ""
+    @State var weightInput: String = ""
     @Query private var weights: [Weight] = []
-    @Binding var weightLoggedBinding: Bool
+    
+    var headerText: String
+    var callback: (Float) -> Void
+    
     
     var body: some View {
         VStack(alignment: .center) {
-            
-            Text("Enter weight")
+            Text(headerText)
                 .font(.custom("JapandiRegular", size: 25))
                 .kerning(2)
                 .padding(30)
                 .foregroundColor(.japandiLightGray)
                 .multilineTextAlignment(.center)
+            
             Spacer()
+            
             Text(weightInput)
                 .font(.custom("JapandiBold", size: 75))
-                .foregroundColor(.black)
+                .foregroundColor(.japandiDarkGray)
+            
             if weightInput != "" {
-                
                 Button() {
                     onSubmit()
                 } label: {
@@ -37,14 +41,14 @@ struct WeightEntry: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .font(.custom("JapandiRegular", fixedSize: 20))
                         .kerning(2)
-                        .foregroundColor(.black)
+                        .foregroundColor(.japandiDarkGray)
                 }
                 .cornerRadius(.infinity)
                 .frame(width: 350, height: 45)  // Adjust width and height as needed
                 .buttonStyle(.borderedProminent)
                 .tint(.japandiLightBrown)
             }
-                //            }
+            //            }
             VStack {
                 HStack {
                     EntryButton("1") {
@@ -59,7 +63,7 @@ struct WeightEntry: View {
                 }
                 HStack {
                     EntryButton("4") {
-                       weightInput += "4"
+                        weightInput += "4"
                     }
                     EntryButton("5") {
                         weightInput += "5"
@@ -81,7 +85,9 @@ struct WeightEntry: View {
                 }
                 HStack {
                     EntryButton(".") {
-                        weightInput += "."
+                        if !weightInput.contains(".") && weightInput.count > 0 {
+                            weightInput += "."
+                        }
                     }
                     EntryButton("0") {
                         weightInput += "0"
@@ -89,7 +95,9 @@ struct WeightEntry: View {
                     
                     // Left Arrow
                     EntryButton("\u{2190}") {
-                        weightInput.removeLast()
+                        if weightInput.count > 0 {
+                            weightInput.removeLast()
+                        }
                     }
                 }
             }
@@ -97,26 +105,15 @@ struct WeightEntry: View {
         }
         .background(.japandiOffWhite)
         .onAppear {
-            $weightLoggedBinding.wrappedValue = getIsWeightLoggedToday()
+            
         }
     }
     
     
     func onSubmit() {
         if let weightInputFloat = Float(weightInput) {
-            $weightLoggedBinding.wrappedValue.toggle()
-            addWeight(weightInputFloat)
+            callback(weightInputFloat)
         }
-    }
-    
-    func addWeight(_ weight: Float) {
-        let newWeight = Weight(weight)
-        //         seedData()
-        context.insert(newWeight)
-    }
-    
-    func clearWeights() -> Void {
-        try? context.delete(model: Weight.self)
     }
     
     func getRollingWeight() -> Float {

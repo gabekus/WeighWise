@@ -21,7 +21,7 @@ struct DayBubble: View {
                     .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? "JapandiGreen" : "JapandiLightGray"))
             Circle()
                 .frame(width: diameter)
-                .foregroundColor(Color(weight.weight == NONEXISTENT_WEIGHT ? isDayOfWeekBeforeCurrentDay(dayOfWeek) ? "JapandiRed" : "JapandiLightBrown" : "JapandiGreen"))
+                .foregroundColor(Color(weight.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? "JapandiRed" : "JapandiLightBrown" : "JapandiGreen"))
                 .overlay(
                     (weight.weight == NONEXISTENT_WEIGHT ? Text(" ") : getOverlayText(weight.weight))
                         .overlay(
@@ -39,11 +39,11 @@ struct DayBubble: View {
     }
 }
 
-func isDayOfWeekBeforeCurrentDay(_ day: Int) -> Bool {
-    let date = getSunday().addingTimeInterval(TimeInterval(day * 24 * 60 * 60))
+func isDayOfWeekAfterCurrentDay(_ day: Int) -> Bool {
+    let date = getSunday().addingTimeInterval(TimeInterval((day - 1) * 24 * 60 * 60))
     print("\(day) is before now")
     print("\(date) is before now")
-    return date.compare(Date()) == .orderedAscending
+    return date.compare(Date()) == .orderedDescending
 }
 
 func isDayCurrentDay(_ day: Int) -> Bool {
