@@ -18,7 +18,6 @@
 		5C0DAE742B4CFA8D00268631 /* Japandi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6B2B4CFA8D00268631 /* Japandi-Light.otf */; };
 		5C0DAE752B4CFA8D00268631 /* Japandi Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6C2B4CFA8D00268631 /* Japandi Bold.otf */; };
 		5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6E2B4CFA8D00268631 /* Weight.swift */; };
-		5C0DAE772B4CFA8D00268631 /* WeightChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6F2B4CFA8D00268631 /* WeightChartView.swift */; };
 		5C0DAE782B4CFA8D00268631 /* DayBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE712B4CFA8D00268631 /* DayBubble.swift */; };
 		5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE722B4CFA8D00268631 /* WeekView.swift */; };
 		5C0DAE7B2B4CFAA500268631 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7A2B4CFAA500268631 /* README.md */; };
@@ -27,6 +26,8 @@
 		5C9AE1352B4DFDFA0044F8AD /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1342B4DFDFA0044F8AD /* Goal.swift */; };
 		5C9AE13C2B4E0B030044F8AD /* GoalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */; };
 		5C9AE13F2B4E4D400044F8AD /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5C9AE13E2B4E4D400044F8AD /* ConfettiSwiftUI */; };
+		5CA2E5BB2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2E5BA2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift */; };
+		5CA2E5BD2B50E7D400EF2DE5 /* WeightCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2E5BC2B50E7D400EF2DE5 /* WeightCalendar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +43,6 @@
 		5C0DAE6B2B4CFA8D00268631 /* Japandi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi-Light.otf"; sourceTree = "<group>"; };
 		5C0DAE6C2B4CFA8D00268631 /* Japandi Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi Bold.otf"; sourceTree = "<group>"; };
 		5C0DAE6E2B4CFA8D00268631 /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
-		5C0DAE6F2B4CFA8D00268631 /* WeightChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightChartView.swift; sourceTree = "<group>"; };
 		5C0DAE712B4CFA8D00268631 /* DayBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayBubble.swift; sourceTree = "<group>"; };
 		5C0DAE722B4CFA8D00268631 /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		5C0DAE7A2B4CFAA500268631 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -52,6 +52,8 @@
 		5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		5C9AE1342B4DFDFA0044F8AD /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDirection.swift; sourceTree = "<group>"; };
+		5CA2E5BA2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalendarWeekView.swift; sourceTree = "<group>"; };
+		5CA2E5BC2B50E7D400EF2DE5 /* WeightCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalendar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,8 +150,8 @@
 		5C0DAE7D2B4D5E0F00268631 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
+				5CA2E5B92B50DE0100EF2DE5 /* WeightCalendar */,
 				5C0DAE542B4CFA1F00268631 /* ContentView.swift */,
-				5C0DAE6F2B4CFA8D00268631 /* WeightChartView.swift */,
 				5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */,
 				5C0DAE702B4CFA8D00268631 /* Week View */,
 				5C0DAE642B4CFA8000268631 /* WeightEntry */,
@@ -180,6 +182,15 @@
 				5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		5CA2E5B92B50DE0100EF2DE5 /* WeightCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				5CA2E5BC2B50E7D400EF2DE5 /* WeightCalendar.swift */,
+				5CA2E5BA2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift */,
+			);
+			path = WeightCalendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,8 +284,9 @@
 				5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */,
 				5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */,
 				5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */,
-				5C0DAE772B4CFA8D00268631 /* WeightChartView.swift in Sources */,
+				5CA2E5BB2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift in Sources */,
 				5C9AE1332B4DEBCA0044F8AD /* OnboardingView.swift in Sources */,
+				5CA2E5BD2B50E7D400EF2DE5 /* WeightCalendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

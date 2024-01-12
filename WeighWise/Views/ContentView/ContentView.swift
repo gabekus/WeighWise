@@ -4,71 +4,41 @@ import HealthKit
 import ConfettiSwiftUI
 
 struct ContentView: View {
-    
     @Environment(\.modelContext) private var context
-    @State private var isWeightLoggedToday: Bool = false
-    @State private var selectedTab: Int = 1
+    @State private var isWeightLoggedToday = false
+    @State private var selectedTab = 0
     @Query private var weights: [Weight] = []
-    @State private var counter: Int = 0
+    @State private var counter = 0
     @Environment(\.scenePhase) private var scenePhase
     
     private let healthKitManager = HealthKitManager()
     
-    init() {
-        //        healthKitManager.startObservingWeightChanges()
-        //        healthKitManager.fetchAllHealthData { weight in
-        //            if let weight = weight {
-        //                print("Weight today: \(weight) kilograms")
-        //            } else {
-        //                print("No weight data available for today.")
-        //            }
-        //        }
-    }
-    
     var body: some View {
         ZStack {
             VStack {
-                if isWeightLoggedToday {
+                if true {
                     TabView(selection: $selectedTab) {
-                        VStack {
-                            WeightChartView()
-                        }.tabItem {
-                            Image(systemName: "chart.bar.fill")
-                        }.tag(0)
-                        VStack {
-                            WeekView()
-                        }.tag(1)
-                            .tabItem {
-                                Image(systemName: "dumbbell.fill")
-                            }
-                        VStack {
-                            OnboardingView()
-                        }.tag(2)
-                            .tabItem {
-                                Image(systemName: "hand.tap")
-                            }
+                        WeightCalendar().tabItem { Image(systemName: "chart.bar.fill") }.tag(0)
+                        WeekView().tabItem { Image(systemName: "dumbbell.fill") }.tag(1)
+                            .scaleEffect(selectedTab == 2 ? 1.5 : 1.0)
+
+                        OnboardingView().tabItem { Image(systemName: "hand.tap") }.tag(2)
                     }
                 } else {
                     WeightEntryView(headerText: "Enter Weight") { weight in
                         isWeightLoggedToday = true
                         addWeight(weight)
-                        //                    if Calendar.current.component(.weekday, from: Date()) == 7 {
-                        counter += 1
-                        //                    }
+                        if Calendar.current.component(.weekday, from: Date()) == 7 {
+                            counter += 1
+                        }
                     }
                 }
-                
-                
             }
+            .background(.japandiOffWhite)
             
-            .onAppear {
-                isWeightLoggedToday = getIsWeightLoggedToday(weights)
-            }
-            .onChange(of: scenePhase) { oldScenePhase, newScenePhase in
-                isWeightLoggedToday = getIsWeightLoggedToday(weights)
-            }
-            EmptyView()
-                .confettiCannon(counter: $counter, colors: [.japandiGreen, .japandiRed, .japandiYellow, .japandiMintGreen])
+            .onAppear { isWeightLoggedToday = getIsWeightLoggedToday(weights) }
+            .onChange(of: scenePhase) { _, _ in isWeightLoggedToday = getIsWeightLoggedToday(weights) }
+            EmptyView().confettiCannon(counter: $counter, colors: [.japandiGreen, .japandiRed, .japandiYellow, .japandiMintGreen])
         }
     }
     
@@ -77,13 +47,14 @@ struct ContentView: View {
         context.insert(newWeight)
     }
     
-    func clearWeights() -> Void {
-        try? context.delete(model: Weight.self)
+    func isSunday() -> Bool {
+        return Calendar.current.component(.weekday, from: Date()) == 7
     }
     
+    func clearWeights() {
+        try? context.delete(model: Weight.self)
+    }
 }
-
-
 
 func getIsWeightLoggedToday(_ weights: [Weight]) -> Bool {
     let _isWeightLoggedToday: Bool
@@ -95,10 +66,22 @@ func getIsWeightLoggedToday(_ weights: [Weight]) -> Bool {
     return _isWeightLoggedToday
 }
 
+let formatWeight = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
+
+func getSunday(for date: Date) -> Date {
+    let calendar = Calendar.current
+    let components = calendar.dateComponents([.weekday], from: date)
+    
+    if let weekday = components.weekday {
+        let daysToSunday = (weekday - calendar.firstWeekday + 7) % 7
+        return calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date
+    }
+    
+    return date
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .modelContainer(for: [Weight.self, Goal.self], inMemory: true)
+        ContentView().modelContainer(for: [Weight.self, Goal.self], inMemory: true)
     }
 }

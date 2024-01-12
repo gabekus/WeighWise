@@ -12,7 +12,7 @@ import SwiftData
     var date: Date
     var weight: Float
     
-    init(_ weight: Float) {
+    init(_ weight: Float, date: Date = Date()) {
         self.date = Date()
         self.weight = weight
     }

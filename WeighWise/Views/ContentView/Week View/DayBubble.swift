@@ -18,7 +18,7 @@ struct DayBubble: View {
         VStack {
             Text("\(dayOfWeekString(dayOfWeek))")
                 .font(.custom("JapandiRegular", size: 8))
-                .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? "JapandiGreen" : "JapandiLightGray"))
+                .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? .japandiMintGreen : .japandiDarkGray))
             Circle()
                 .frame(width: diameter)
                 .foregroundColor(weight.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? .japandiRed : .japandiLightBrown : .japandiGreen)
@@ -40,9 +40,7 @@ struct DayBubble: View {
 }
 
 func isDayOfWeekAfterCurrentDay(_ day: Int) -> Bool {
-    let date = getSunday().addingTimeInterval(TimeInterval((day - 1) * 24 * 60 * 60))
-    print("\(day) is before now")
-    print("\(date) is before now")
+    let date = getSunday(for: Date()).addingTimeInterval(TimeInterval((day - 1) * 24 * 60 * 60))
     return date.compare(Date()) == .orderedDescending
 }
 
@@ -53,7 +51,7 @@ func isDayCurrentDay(_ day: Int) -> Bool {
 func getOverlayText(_ weight: Float) -> Text {
     return Text("\(formatWeight(weight))")
         .foregroundColor(Color("JapandiOffWhite"))
-        .font(.custom("JapandiRegular", size: 19))
+        .font(.custom("JapandiRegular", size: 15))
 }
 
 func dayOfWeekString(_ day: Int) -> String {

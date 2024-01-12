@@ -35,7 +35,7 @@ struct EntryButton: View {
         }) {
             Text(label)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .font(.custom("JapandiRegular", size: label == "." ? 50 : 30))
+                .font(.custom("JapandiRegular", size: label == "." ? 100 : 30))
                 .foregroundColor(.japandiDarkGray)
         }
     }

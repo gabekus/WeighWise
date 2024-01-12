@@ -72,24 +72,9 @@ func calculateAverage(of array: [Weight]) -> Float {
 }
 
 func getCurrentWeeksWeights(_ weights: [Weight]) throws -> [Weight] {
-    return weights.filter { $0.date >= getSunday() }
+    return weights.filter { $0.date >= getSunday(for: Date()) }
 }
 
-func getSunday() -> Date {
-    let currentDate = Date()
-    let calendar = Calendar.current
-    let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)
-    
-    // Get the first day (Sunday) of the current week
-    if let sundayDate = calendar.date(from: components) {
-        return sundayDate
-    } else {
-        print("This should never happen")
-        return Date()
-    }
-}
-
-let formatWeight = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
 
 #Preview {
     WeekView()

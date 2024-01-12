@@ -10,5 +10,7 @@
 	</array>
     <key>NSHealthUpdateUsageDescription</key>
     <string>Ingest weight from Health</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Ingest weight from Health</string>
 </dict>
 </plist>
