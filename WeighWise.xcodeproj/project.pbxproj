@@ -26,7 +26,7 @@
 		5C9AE1352B4DFDFA0044F8AD /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1342B4DFDFA0044F8AD /* Goal.swift */; };
 		5C9AE13C2B4E0B030044F8AD /* GoalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */; };
 		5C9AE13F2B4E4D400044F8AD /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5C9AE13E2B4E4D400044F8AD /* ConfettiSwiftUI */; };
-		5CA2E5BB2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2E5BA2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift */; };
+		5CA2E5BB2B50DE2C00EF2DE5 /* WeekBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2E5BA2B50DE2C00EF2DE5 /* WeekBubble.swift */; };
 		5CA2E5BD2B50E7D400EF2DE5 /* WeightCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2E5BC2B50E7D400EF2DE5 /* WeightCalendar.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +52,7 @@
 		5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		5C9AE1342B4DFDFA0044F8AD /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDirection.swift; sourceTree = "<group>"; };
-		5CA2E5BA2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalendarWeekView.swift; sourceTree = "<group>"; };
+		5CA2E5BA2B50DE2C00EF2DE5 /* WeekBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekBubble.swift; sourceTree = "<group>"; };
 		5CA2E5BC2B50E7D400EF2DE5 /* WeightCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalendar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA2E5BC2B50E7D400EF2DE5 /* WeightCalendar.swift */,
-				5CA2E5BA2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift */,
+				5CA2E5BA2B50DE2C00EF2DE5 /* WeekBubble.swift */,
 			);
 			path = WeightCalendar;
 			sourceTree = "<group>";
@@ -284,7 +284,7 @@
 				5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */,
 				5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */,
 				5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */,
-				5CA2E5BB2B50DE2C00EF2DE5 /* WeightCalendarWeekView.swift in Sources */,
+				5CA2E5BB2B50DE2C00EF2DE5 /* WeekBubble.swift in Sources */,
 				5C9AE1332B4DEBCA0044F8AD /* OnboardingView.swift in Sources */,
 				5CA2E5BD2B50E7D400EF2DE5 /* WeightCalendar.swift in Sources */,
 			);

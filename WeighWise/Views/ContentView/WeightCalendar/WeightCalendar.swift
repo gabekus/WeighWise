@@ -14,8 +14,6 @@ struct WeightCalendar: View {
     @Environment(\.modelContext) private var context
     @Query private var weights: [Weight]
     
-    
-    
     var body: some View {
         ZStack {
             VStack {
@@ -23,31 +21,43 @@ struct WeightCalendar: View {
                 HStack {
                     Spacer()
                 }
+                Spacer()
             }
-            .background(.japandiOffWhite)
             
             VStack {
                 if weights.count > 0 {
                     let viewmodel = getWeightCalendarViewModel(weights)
-                    
-                    ScrollView {
-                        ForEach(viewmodel.sorted(by: { $0.key > $1.key}), id: \.key) { year, months in
-                           Text("\(formatYear(year))")
-                            ForEach(months.sorted(by: { $0.key > $1.key }), id: \.key) { month, weeks in
-                                Text("\(formatMonth(month))")
-                                ForEach(weeks.sorted(by: { $0.key > $1.key}), id: \.key) { week in
-                                    WeightCalendarWeekView(averageWeight: week.value.averageWeight, weights: week.value.days)
+                    HStack {
+                        NavigationView {
+                            ScrollView {
+                                ForEach(viewmodel.sorted(by: { $0.key > $1.key}), id: \.key) { year, months in
+                                    Text("\(formatYear(year))")
+                                    ForEach(months.sorted(by: { $0.key > $1.key }), id: \.key) { month, weeks in
+                                        Text("\(formatMonth(month))")
+                                        ForEach(weeks.sorted(by: { $0.key > $1.key}), id: \.key) { week in
+                                            Text("\(formatDate(week.value.days.first!.date))")
+                                                .multilineTextAlignment(.leading)
+                                            NavigationLink(destination: WeekView()) {
+                                                WeekBubble(averageWeight: week.value.averageWeight, weights: week.value.days)
+                                            }
+                                        }
+                                    }
                                 }
                             }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.japandiOffWhite)
                         }
                     }
                 }
             }
+            
+            
             .onAppear {
-                try? context.delete(model: Weight.self)
-                seedData()
+                //                try? context.delete(model: Weight.self)
+                //                seedData()
             }
         }
+        .background(.japandiOffWhite)
     }
     
     func seedData() {
@@ -94,7 +104,7 @@ struct WeightCalendar: View {
     }
     
     struct WeightWeek: Identifiable {
-        let id = UUID()  // Add an identifier to conform to Identifiable
+        let id = UUID()
         var averageWeight: Float
         var days: [Weight]
     }
@@ -178,34 +188,6 @@ struct WeightCalendar: View {
         
         return nonexistentWeights
     }
-    
-    //    func getWeeksForMonth(month: Date, weights: [Weight]) -> [WeightWeek] {
-    //        let calendar = Calendar.current
-    //        let monthComponents = calendar.dateComponents([.year, .month], from: month)
-    //        guard let firstDayOfMonth = calendar.date(from: monthComponents),
-    //              let lastDayOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: firstDayOfMonth) else {
-    //            return []
-    //        }
-    //
-    //        var weeks: [WeightWeek] = []
-    //
-    //        calendar.enumerateDates(startingAfter: firstDayOfMonth, matching: DateComponents(hour: 0, minute: 0, second: 0, weekday: calendar.firstWeekday), matchingPolicy: .nextTime) { (date, _, stop) in
-    //            guard let date = date, date <= lastDayOfMonth else {
-    //                stop = true
-    //                return
-    //            }
-    //            
-    //            let daysInWeek = (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: date) }
-    //            let weekWeights = daysInWeek.compactMap { day in
-    //                weights.first { $0.date == day }
-    //            }
-    //            let averageWeight = calculateAverageWeight(weekWeights)
-    //            let week = WeightWeek(averageWeight: averageWeight, days: weekWeights)
-    //            weeks.append(week)
-    //        }
-    //
-    //        return weeks
-    //    }
     
     func calculateAverageWeight(_ weights: [Weight]) -> Float {
         return weights.reduce(0.0) { $0 + $1.weight } / Float(weights.filter { $0.weight != NONEXISTENT_WEIGHT}.count)

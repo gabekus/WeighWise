@@ -11,7 +11,7 @@ import SwiftData
 
 struct WeekView: View {
     @Environment(\.modelContext) private var context
-    @Query private var weights: [Weight] = []
+    @Query private var weights: [Weight] = [Weight(5)]
     @State private var currentWeeksWeights: [Weight] = []
     @Environment(\.scenePhase) private var scenePhase
     @State private var weekAverage: Float = 0
@@ -30,6 +30,22 @@ struct WeekView: View {
                     }
                     Spacer()
                 }.onAppear {
+                    do {
+                        var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
+                        currentWeeksWeights = []
+                        for i in 1...7 {
+                            if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
+                                currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
+                            } else {
+                                currentWeeksWeights.append(Weight(NONEXISTENT_WEIGHT))
+                            }
+                        }
+                        weekAverage = calculateAverage(of: currentWeeksWeights)
+                    } catch {
+                        print("Error \(error)")
+                    }
+                }
+                .onChange(of: scenePhase) {
                     do {
                         var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
                         currentWeeksWeights = []

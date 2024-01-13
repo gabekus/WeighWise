@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             VStack {
-                if true {
+                if isWeightLoggedToday {
                     TabView(selection: $selectedTab) {
                         WeightCalendar().tabItem { Image(systemName: "chart.bar.fill") }.tag(0)
                         WeekView().tabItem { Image(systemName: "dumbbell.fill") }.tag(1)
@@ -28,7 +28,7 @@ struct ContentView: View {
                     WeightEntryView(headerText: "Enter Weight") { weight in
                         isWeightLoggedToday = true
                         addWeight(weight)
-                        if Calendar.current.component(.weekday, from: Date()) == 7 {
+                        if isTodaySaturday() && fullWeekLogged() {
                             counter += 1
                         }
                     }
@@ -39,6 +39,18 @@ struct ContentView: View {
             .onAppear { isWeightLoggedToday = getIsWeightLoggedToday(weights) }
             .onChange(of: scenePhase) { _, _ in isWeightLoggedToday = getIsWeightLoggedToday(weights) }
             EmptyView().confettiCannon(counter: $counter, colors: [.japandiGreen, .japandiRed, .japandiYellow, .japandiMintGreen])
+        }
+    }
+    
+    func isTodaySaturday() -> Bool {
+        return Calendar.current.component(.weekday, from: Date()) == 7
+    }
+    
+    func fullWeekLogged() -> Bool {
+        if let currentWeeksWeights = try? getCurrentWeeksWeights(weights) {
+            return currentWeeksWeights.filter { $0.weight != NONEXISTENT_WEIGHT }.count == 7
+        } else {
+            return false
         }
     }
     

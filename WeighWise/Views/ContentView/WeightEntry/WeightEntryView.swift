@@ -55,6 +55,7 @@ struct WeightEntryView: View {
                     .frame(width: 350, height: 45)  // Adjust width and height as needed
                     .buttonStyle(.borderedProminent)
                     .tint(.japandiLightBrown)
+                            .padding(.bottom, 20)
                 }
                 
                 VStack {
