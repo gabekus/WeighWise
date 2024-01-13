@@ -31,9 +31,14 @@ struct WeightCalendar: View {
                     let viewmodel = getWeightCalendarViewModel(weights)
                     
                     ScrollView {
-                        ForEach(Array(viewmodel.keys), id: \.self) { date in
-                            WeightCalendarWeekView(averageWeight: viewmodel[date]!.averageWeight, weights: viewmodel[date]!.days)
-                            
+                        ForEach(viewmodel.sorted(by: { $0.key > $1.key}), id: \.key) { year, months in
+                           Text("\(formatYear(year))")
+                            ForEach(months.sorted(by: { $0.key > $1.key }), id: \.key) { month, weeks in
+                                Text("\(formatMonth(month))")
+                                ForEach(weeks.sorted(by: { $0.key > $1.key}), id: \.key) { week in
+                                    WeightCalendarWeekView(averageWeight: week.value.averageWeight, weights: week.value.days)
+                                }
+                            }
                         }
                     }
                 }
@@ -52,6 +57,26 @@ struct WeightCalendar: View {
             context.insert(weight)
         }
     }
+    
+    func formatMonth(_ month: Int) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "MMMM"
+        
+        guard let monthName = Calendar.current.date(from: DateComponents(year: 2000, month: month, day: 1)) else {
+            return "Invalid Month"
+        }
+        
+        return df.string(from: monthName)
+        
+    }
+    
+    func formatDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d"
+        
+        return dateFormatter.string(from: date)
+    }
+    
     struct WeightCalendarViewModel {
         let years: [WeightYear]
     }
@@ -79,22 +104,24 @@ struct WeightCalendar: View {
         return yearString.replacingOccurrences(of: ",", with: "")
     }
     
-    func getWeightCalendarViewModel(_ weights: [Weight]) -> [Date: WeightWeek] {
+    func getWeightCalendarViewModel(_ weights: [Weight]) -> [Int: [Int: [Date: WeightWeek]]] {
         guard !weights.isEmpty else {
             return [:]
         }
         
         let calendar = Calendar.current
         var sortedWeights = weights.sorted(by: { $0.date > $1.date })
-        var weightWeeksWithMetadata = [Date: WeightWeek]()
+        var weightWeeks = [Date: WeightWeek]()
+        var weightMonths = [Int: [Date: WeightWeek]]()
+        var weightYears = [Int: [Int: [Date: WeightWeek]]]()
         
         var priorSunday = getSunday(for: sortedWeights.last!.date)
         
         while !sortedWeights.isEmpty {
             priorSunday = getSunday(for: sortedWeights.last!.date)
             
-            if weightWeeksWithMetadata[priorSunday] == nil {
-                weightWeeksWithMetadata[priorSunday] = WeightWeek(averageWeight: 0, days: [])
+            if weightWeeks[priorSunday] == nil {
+                weightWeeks[priorSunday] = WeightWeek(averageWeight: 0, days: [])
             }
             
             let nextSunday = calendar.date(byAdding: .day, value: 7, to: priorSunday)!
@@ -109,16 +136,30 @@ struct WeightCalendar: View {
             fullWeek.sort { $0.date < $1.date } // Sort weekdays ascending
             let avgWeight = weightsForCurrentWeek.reduce(0.0) { $0 + $1.weight } / Float(weightsForCurrentWeek.count)
             
-            weightWeeksWithMetadata[priorSunday]!.days = fullWeek
-            weightWeeksWithMetadata[priorSunday]?.averageWeight = avgWeight
+            weightWeeks[priorSunday]!.days = fullWeek
+            weightWeeks[priorSunday]?.averageWeight = avgWeight
             
+            let monthValue = calendar.component(.month, from: priorSunday)
+            
+            if weightMonths[monthValue] == nil {
+                weightMonths[monthValue] = [:]
+            }
+            
+            weightMonths[monthValue]![priorSunday] = weightWeeks[priorSunday]
+            
+            let year = calendar.component(.year, from: priorSunday)
+            if weightYears[year] == nil {
+                weightYears[year] = [:]
+            }
+            
+            weightYears[year]![monthValue] = weightMonths[monthValue]
             
             while !sortedWeights.isEmpty && sortedWeights.last!.date < nextSunday {
                 sortedWeights.removeLast()
             }
         }
         
-        return weightWeeksWithMetadata
+        return weightYears
     }
     
     func getMissingWeightDays(_ weightsForWeek: [Weight]) -> [Weight] {
