@@ -82,14 +82,14 @@ let formatWeight = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
 
 func getSunday(for date: Date) -> Date {
     let calendar = Calendar.current
-    let components = calendar.dateComponents([.weekday], from: date)
+    let components = calendar.dateComponents([.weekday], from: calendar.startOfDay(for: date))
     
     if let weekday = components.weekday {
         let daysToSunday = (weekday - calendar.firstWeekday + 7) % 7
         return calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date
     }
     
-    return date
+    return calendar.startOfDay(for: date)
 }
 
 struct ContentView_Previews: PreviewProvider {

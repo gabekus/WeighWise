@@ -30,20 +30,33 @@ struct WeightCalendar: View {
                     HStack {
                         NavigationView {
                             ScrollView {
-                                ForEach(viewmodel.sorted(by: { $0.key > $1.key}), id: \.key) { year, months in
-                                    Text("\(formatYear(year))")
-                                    ForEach(months.sorted(by: { $0.key > $1.key }), id: \.key) { month, weeks in
-                                        Text("\(formatMonth(month))")
-                                        ForEach(weeks.sorted(by: { $0.key > $1.key}), id: \.key) { week in
-                                            Text("\(formatDate(week.value.days.first!.date))")
-                                                .multilineTextAlignment(.leading)
-                                            NavigationLink(destination: WeekView()) {
-                                                WeekBubble(averageWeight: week.value.averageWeight, weights: week.value.days)
+                                VStack {
+                                    ForEach(viewmodel.sorted(by: { $0.key > $1.key}), id: \.key) { year, months in
+                                        Text("\(formatYear(year))")
+                                            .foregroundColor(.japandiDarkGray)
+                                            .font(.custom("JapandiRegular", size: 14))
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                            .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 20))
+                                        
+                                        
+                                        ForEach(months.sorted(by: { $0.key > $1.key }), id: \.key) { month, weeks in
+                                            Text("\(formatMonth(month))")
+                                                .font(.custom("JapandiBold", size: 15))
+                                                .foregroundColor(.japandiDarkGray)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .padding(EdgeInsets(top: 0, leading: 40, bottom: 5, trailing: 0))
+                                            
+                                            ForEach(weeks.sorted(by: { $0.key > $1.key}), id: \.key) { week in
+                                                NavigationLink(destination: WeekView(pastWeights: week.value.days)) {
+                                                    WeekBubble(averageWeight: week.value.averageWeight, weights: week.value.days)
+                                                        .padding(.top, 5)
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.japandiOffWhite)
                         }
@@ -53,8 +66,8 @@ struct WeightCalendar: View {
             
             
             .onAppear {
-                //                try? context.delete(model: Weight.self)
-                //                seedData()
+                                try? context.delete(model: Weight.self)
+                                seedData()
             }
         }
         .background(.japandiOffWhite)
@@ -80,12 +93,6 @@ struct WeightCalendar: View {
         
     }
     
-    func formatDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d"
-        
-        return dateFormatter.string(from: date)
-    }
     
     struct WeightCalendarViewModel {
         let years: [WeightYear]
@@ -135,7 +142,13 @@ struct WeightCalendar: View {
             }
             
             let nextSunday = calendar.date(byAdding: .day, value: 7, to: priorSunday)!
-            let weightsForCurrentWeek = sortedWeights.filter { $0.date >= priorSunday && $0.date < nextSunday }
+            let weightsForCurrentWeek = sortedWeights.filter {
+                let start = calendar.startOfDay(for: priorSunday)
+                let end = calendar.startOfDay(for: nextSunday)
+                let weightDate = calendar.startOfDay(for: $0.date)
+                
+                return (weightDate > start || calendar.isDate(weightDate, inSameDayAs: start)) && weightDate < end
+            }
             
             var fullWeek: [Weight] = weightsForCurrentWeek
             if weightsForCurrentWeek.count < 7 {
@@ -164,7 +177,7 @@ struct WeightCalendar: View {
             
             weightYears[year]![monthValue] = weightMonths[monthValue]
             
-            while !sortedWeights.isEmpty && sortedWeights.last!.date < nextSunday {
+            while !sortedWeights.isEmpty && sortedWeights.last!.date < calendar.startOfDay(for: nextSunday) {
                 sortedWeights.removeLast()
             }
         }

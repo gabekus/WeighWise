@@ -16,6 +16,8 @@ struct WeekView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var weekAverage: Float = 0
     
+    var pastWeights: [Weight] = []
+    
     var body: some View {
         ZStack {
             VStack {
@@ -31,29 +33,36 @@ struct WeekView: View {
                     Spacer()
                 }.onAppear {
                     do {
-                        var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
-                        currentWeeksWeights = []
-                        for i in 1...7 {
-                            if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
-                                currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
-                            } else {
-                                currentWeeksWeights.append(Weight(NONEXISTENT_WEIGHT))
+                        if pastWeights.isEmpty {
+                            var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
+                            currentWeeksWeights = []
+                            for i in 1...7 {
+                                if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
+                                    currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
+                                } else {
+                                    currentWeeksWeights.append(Weight(NONEXISTENT_WEIGHT))
+                                }
                             }
+                        } else {
+                            currentWeeksWeights = pastWeights
                         }
-                        weekAverage = calculateAverage(of: currentWeeksWeights)
+                            let newWeekAverage = calculateAverage(of: currentWeeksWeights)
+                            weekAverage = newWeekAverage
                     } catch {
                         print("Error \(error)")
                     }
                 }
                 .onChange(of: scenePhase) {
                     do {
-                        var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
-                        currentWeeksWeights = []
-                        for i in 1...7 {
-                            if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
-                                currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
-                            } else {
-                                currentWeeksWeights.append(Weight(NONEXISTENT_WEIGHT))
+                        if currentWeeksWeights.isEmpty {
+                            var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
+                            currentWeeksWeights = []
+                            for i in 1...7 {
+                                if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
+                                    currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
+                                } else {
+                                    currentWeeksWeights.append(Weight(NONEXISTENT_WEIGHT))
+                                }
                             }
                         }
                         weekAverage = calculateAverage(of: currentWeeksWeights)
