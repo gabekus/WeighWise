@@ -24,3 +24,8 @@ struct WeightChange: View {
         }
     }
 }
+
+#Preview {
+    WeightCalendar()
+        .modelContainer(for: [Weight.self], inMemory: true)
+}

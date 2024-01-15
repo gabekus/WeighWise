@@ -48,7 +48,7 @@ struct WeightCalendar: View {
                                             
                                             ForEach(weeks.sorted(by: { $0.key > $1.key}), id: \.key) { week in
                                                 NavigationLink(destination: WeekView(pastWeights: week.value.days)) {
-                                                    WeekBubble(averageWeight: week.value.averageWeight, weights: week.value.days)
+                                                    WeekBubble(averageWeight: week.value.averageWeight, weights: week.value.days, isFullWeek: week.value.days.filter { $0.weight != NONEXISTENT_WEIGHT }.count == 7)
                                                         .padding(.top, 5)
                                                 }
                                             }
@@ -56,18 +56,12 @@ struct WeightCalendar: View {
                                     }
                                 }
                             }
-
+                            
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.japandiOffWhite)
                         }
                     }
                 }
-            }
-            
-            
-            .onAppear {
-                                try? context.delete(model: Weight.self)
-                                seedData()
             }
         }
         .background(.japandiOffWhite)

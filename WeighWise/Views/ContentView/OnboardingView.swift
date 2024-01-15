@@ -98,6 +98,7 @@ struct OnboardingView: View {
                         HStack {
                             Spacer()
                             WeightChange(goalDirection: goals.first!.goalDirection, weightChange: getGoalPoundsPerWeek())
+                                .padding(.bottom, 200)
                             Spacer()
                         }
                         Spacer()
@@ -114,6 +115,22 @@ struct OnboardingView: View {
                         }
                         .padding(50)
                         Spacer()
+                        Button() {
+                            step = .WeightEntry
+                            editGoal()
+                        } label: {
+                            Text("Edit")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .font(.custom("JapandiRegular", fixedSize: 20))
+                                .kerning(2)
+                                .foregroundColor(.japandiDarkGray)
+                        }
+                        .cornerRadius(.infinity)
+                        .frame(width: 150, height: 45)
+                        .padding(.bottom, 200)
+                        .buttonStyle(.borderedProminent)
+                        .tint(.japandiLightBrown)
+                        
                     }
                 }
             }
@@ -123,6 +140,10 @@ struct OnboardingView: View {
                 step = .Onboarded
             }
         }
+    }
+    
+    func editGoal() -> Void {
+        try? context.delete(model: Goal.self)
     }
     
     func getGoalPoundsPerWeek() -> Float {

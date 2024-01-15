@@ -35,18 +35,16 @@ struct ContentView: View {
                         WeightEntryView(headerText: "Enter Weight") { weight in
                             isWeightLoggedToday = true
                             addWeight(weight)
-                            //                        if isTodaySaturday() && fullWeekLogged() {
-                            if true {
+                            if isTodaySaturday() && fullWeekLogged() {
                                 showWeekSummary = true
-                                //                            counter += 1
                             }
                         }
                     }
                 }
             .background(.japandiOffWhite)
             .onAppear {
-                clearWeights()
-                seedData()
+//                clearWeights()
+//                seedData()
                 isWeightLoggedToday = getIsWeightLoggedToday(weights) }
             .onChange(of: scenePhase) { _, _ in isWeightLoggedToday = getIsWeightLoggedToday(weights) }
         }

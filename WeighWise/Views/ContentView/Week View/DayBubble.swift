@@ -21,7 +21,7 @@ struct DayBubble: View {
                 .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? .japandiMintGreen : .japandiDarkGray))
             Circle()
                 .frame(width: diameter)
-                .foregroundColor(weight.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? .japandiRed : .japandiLightBrown : .japandiGreen)
+                .foregroundColor(weight.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? .japandiRed : .japandiLightBrown : .japandiMintGreen)
                 .overlay(
                     (weight.weight == NONEXISTENT_WEIGHT ? Text(" ") : getOverlayText(weight.weight))
                         .overlay(

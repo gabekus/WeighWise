@@ -12,6 +12,8 @@ struct WeekBubble: View {
     var averageWeight: Float
     var weights: [Weight]
     
+    var isFullWeek: Bool
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: .infinity)
@@ -78,5 +80,5 @@ struct WeekBubble: View {
 }
 
 #Preview {
-    WeekBubble(averageWeight: 125, weights: [])
+    WeekBubble(averageWeight: 125, weights: [], isFullWeek: false)
 }
