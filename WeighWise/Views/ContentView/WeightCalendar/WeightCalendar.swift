@@ -33,7 +33,7 @@ struct WeightCalendar: View {
                                 VStack {
                                     ForEach(viewmodel.sorted(by: { $0.key > $1.key}), id: \.key) { year, months in
                                         Text("\(formatYear(year))")
-                                            .foregroundColor(.japandiDarkGray)
+                                            .foregroundColor(.japandiGray)
                                             .font(.custom("JapandiRegular", size: 14))
                                             .frame(maxWidth: .infinity, alignment: .trailing)
                                             .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 20))
@@ -41,8 +41,8 @@ struct WeightCalendar: View {
                                         
                                         ForEach(months.sorted(by: { $0.key > $1.key }), id: \.key) { month, weeks in
                                             Text("\(formatMonth(month))")
-                                                .font(.custom("JapandiBold", size: 15))
-                                                .foregroundColor(.japandiDarkGray)
+                                                .font(.custom("JapandiRegular", size: 15))
+                                                .foregroundColor(.japandiGray)
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(EdgeInsets(top: 0, leading: 40, bottom: 5, trailing: 0))
                                             

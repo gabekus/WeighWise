@@ -22,6 +22,8 @@
 		5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE722B4CFA8D00268631 /* WeekView.swift */; };
 		5C0DAE7B2B4CFAA500268631 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7A2B4CFAA500268631 /* README.md */; };
 		5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */; };
+		5C578F0A2B550FE4003ACF64 /* WeightChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C578F092B550FE4003ACF64 /* WeightChange.swift */; };
+		5C7316882B54FEA500068AD9 /* WeekSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7316872B54FEA500068AD9 /* WeekSummaryView.swift */; };
 		5C9AE1332B4DEBCA0044F8AD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */; };
 		5C9AE1352B4DFDFA0044F8AD /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE1342B4DFDFA0044F8AD /* Goal.swift */; };
 		5C9AE13C2B4E0B030044F8AD /* GoalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */; };
@@ -49,6 +51,8 @@
 		5C0DAE7C2B4CFCC600268631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C0DAE7F2B4D64BF00268631 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		5C0DAE812B4D6E0C00268631 /* WeighWise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeighWise.entitlements; sourceTree = "<group>"; };
+		5C578F092B550FE4003ACF64 /* WeightChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightChange.swift; sourceTree = "<group>"; };
+		5C7316872B54FEA500068AD9 /* WeekSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSummaryView.swift; sourceTree = "<group>"; };
 		5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		5C9AE1342B4DFDFA0044F8AD /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		5C9AE13B2B4E0B030044F8AD /* GoalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDirection.swift; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				5C9AE1322B4DEBCA0044F8AD /* OnboardingView.swift */,
 				5C0DAE702B4CFA8D00268631 /* Week View */,
 				5C0DAE642B4CFA8000268631 /* WeightEntry */,
+				5C7316872B54FEA500068AD9 /* WeekSummaryView.swift */,
+				5C578F092B550FE4003ACF64 /* WeightChange.swift */,
 			);
 			path = ContentView;
 			sourceTree = "<group>";
@@ -274,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C9AE13C2B4E0B030044F8AD /* GoalDirection.swift in Sources */,
+				5C7316882B54FEA500068AD9 /* WeekSummaryView.swift in Sources */,
 				5C0DAE682B4CFA8000268631 /* EntryButton.swift in Sources */,
 				5C0DAE552B4CFA1F00268631 /* ContentView.swift in Sources */,
 				5C0DAE672B4CFA8000268631 /* WeightEntryView.swift in Sources */,
@@ -283,6 +290,7 @@
 				5C0DAE632B4CFA7700268631 /* Constants.swift in Sources */,
 				5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */,
 				5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */,
+				5C578F0A2B550FE4003ACF64 /* WeightChange.swift in Sources */,
 				5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */,
 				5CA2E5BB2B50DE2C00EF2DE5 /* WeekBubble.swift in Sources */,
 				5C9AE1332B4DEBCA0044F8AD /* OnboardingView.swift in Sources */,

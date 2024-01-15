@@ -17,7 +17,6 @@ struct WeightEntryView: View {
     var headerText: String
     var callback: (Float) -> Void
     
-    
     var body: some View {
         ZStack {
             VStack {
@@ -52,10 +51,10 @@ struct WeightEntryView: View {
                             .foregroundColor(.japandiDarkGray)
                     }
                     .cornerRadius(.infinity)
-                    .frame(width: 350, height: 45)  // Adjust width and height as needed
+                    .frame(width: 350, height: 45)
                     .buttonStyle(.borderedProminent)
                     .tint(.japandiLightBrown)
-                            .padding(.bottom, 20)
+                    .padding(.bottom, 20)
                 }
                 
                 VStack {
@@ -145,17 +144,6 @@ struct WeightEntryView: View {
             return dayOfLastWeightLogged == currentDay
         }
         return false
-    }
-    
-    func seedData() {
-        //        print("Seeding weights")
-        context.insert(Weight(100))
-        for i in 0...2 {
-            let weight = Weight(Float(Int.random(in: 126..<130)))
-            weight.date = Calendar.current.date(byAdding: .day, value: i, to: weight.date)!
-            context.insert(weight)
-        }
-        
     }
 }
 

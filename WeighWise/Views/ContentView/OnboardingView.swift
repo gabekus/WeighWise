@@ -97,13 +97,9 @@ struct OnboardingView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            Image(systemName: "arrow.\(goals.first!.goalDirection == .WeightGain ? "up" : "down")").font(.custom("", size: 20))
-                            Text(getGoalPoundsPerWeek()) + Text(" lbs").font(.custom("JapandiRegular", size: 20))
-                                .kerning(1)
+                            WeightChange(goalDirection: goals.first!.goalDirection, weightChange: getGoalPoundsPerWeek())
                             Spacer()
                         }
-                        .font(.custom("JapandiRegular", size: 75))
-                        .foregroundColor(.japandiDarkGray)
                         Spacer()
                     }
                     .background(.japandiOffWhite)
@@ -129,8 +125,8 @@ struct OnboardingView: View {
         }
     }
     
-    func getGoalPoundsPerWeek() -> String {
-        return formatWeight(goals.first!.goalPoundsPerWeek)
+    func getGoalPoundsPerWeek() -> Float {
+        return goals.first!.goalPoundsPerWeek
     }
     
     

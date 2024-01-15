@@ -6,9 +6,9 @@ import ConfettiSwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var context
     @State private var isWeightLoggedToday = false
-    @State private var selectedTab = 0
+    @State private var selectedTab = 1
     @Query private var weights: [Weight] = []
-    @State private var counter = 0
+    @State private var showWeekSummary = false
     @Environment(\.scenePhase) private var scenePhase
     
     private let healthKitManager = HealthKitManager()
@@ -17,28 +17,47 @@ struct ContentView: View {
         ZStack {
             VStack {
                 if isWeightLoggedToday {
-                    TabView(selection: $selectedTab) {
-                        WeightCalendar().tabItem { Image(systemName: "chart.bar.fill") }.tag(0)
-                        WeekView().tabItem { Image(systemName: "dumbbell.fill") }.tag(1)
-                            .scaleEffect(selectedTab == 2 ? 1.5 : 1.0)
-
-                        OnboardingView().tabItem { Image(systemName: "hand.tap") }.tag(2)
+                    if showWeekSummary {
+                        WeekSummaryView { 
+                            showWeekSummary = false
+                            selectedTab = 0
+                        }
+                    } else {
+                        TabView(selection: $selectedTab) {
+                            WeightCalendar().tabItem { Image(systemName: "chart.bar.fill") }.tag(0)
+                            WeekView().tabItem { Image(systemName: "dumbbell.fill") }.tag(1)
+                                .scaleEffect(selectedTab == 2 ? 1.5 : 1.0)
+                            
+                            OnboardingView().tabItem { Image(systemName: "hand.tap") }.tag(2)
+                        }
                     }
                 } else {
-                    WeightEntryView(headerText: "Enter Weight") { weight in
-                        isWeightLoggedToday = true
-                        addWeight(weight)
-                        if isTodaySaturday() && fullWeekLogged() {
-                            counter += 1
+                        WeightEntryView(headerText: "Enter Weight") { weight in
+                            isWeightLoggedToday = true
+                            addWeight(weight)
+                            //                        if isTodaySaturday() && fullWeekLogged() {
+                            if true {
+                                showWeekSummary = true
+                                //                            counter += 1
+                            }
                         }
                     }
                 }
-            }
             .background(.japandiOffWhite)
-            
-            .onAppear { isWeightLoggedToday = getIsWeightLoggedToday(weights) }
+            .onAppear {
+                clearWeights()
+                seedData()
+                isWeightLoggedToday = getIsWeightLoggedToday(weights) }
             .onChange(of: scenePhase) { _, _ in isWeightLoggedToday = getIsWeightLoggedToday(weights) }
-            EmptyView().confettiCannon(counter: $counter, colors: [.japandiGreen, .japandiRed, .japandiYellow, .japandiMintGreen])
+        }
+    }
+    
+    func seedData() {
+        print("Seeding weights")
+        for i in 0...30 {
+            let weight = Weight(Float(Int.random(in: 135..<145)))
+            weight.date = Calendar.current.date(byAdding: .day, value: -i, to: weight.date)!
+            context.insert(weight)
         }
     }
     
