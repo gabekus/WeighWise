@@ -49,7 +49,7 @@ struct WeightCalendar: View {
                                             
                                             ForEach(weeks.sorted(by: { $0.key > $1.key}), id: \.key) { week in
                                                 NavigationLink(destination: WeekView(pastWeights: week.value.days)) {
-                                                    WeekBubble(averageWeight: week.value.averageWeight, weights: week.value.days, isFullWeek: week.value.days.filter { $0.weight != NONEXISTENT_WEIGHT }.count == 7)
+                                                    WeekBubble(averageWeight: week.value.averageWeight, dateEntries: week.value.days, isFullWeek: week.value.days.filter { $0.weight != NONEXISTENT_WEIGHT }.count == 7)
                                                         .padding(.top, 5)
                                                 }
                                             }
@@ -151,13 +151,13 @@ struct WeightCalendar: View {
         return yearString.replacingOccurrences(of: ",", with: "")
     }
     
-    func getWeightCalendarViewModel(_ weights: [DateEntry]) -> [Int: [Int: [Date: WeightWeek]]] {
-        guard !weights.isEmpty else {
+    func getWeightCalendarViewModel(_ dateEntries: [DateEntry]) -> [Int: [Int: [Date: WeightWeek]]] {
+        guard !dateEntries.isEmpty else {
             return [:]
         }
         
         let calendar = Calendar.current
-        var sortedWeights = weights.sorted(by: { $0.date > $1.date })
+        var sortedWeights = dateEntries.sorted(by: { $0.date > $1.date })
         var weightWeeks = [Date: WeightWeek]()
         var weightMonths = [Int: [Date: WeightWeek]]()
         var weightYears = [Int: [Int: [Date: WeightWeek]]]()
@@ -219,15 +219,15 @@ struct WeightCalendar: View {
         let calendar = Calendar.current
         let sundayDate = getSunday(for: weightsForWeek.first!.date)
         
-        let daysInWeek = (0..<7).map { calendar.date(byAdding: .day, value: $0, to: sundayDate) }
+        let daysInWeek = (0...7).map { calendar.date(byAdding: .day, value: $0, to: sundayDate) }
         
         let missingDays = daysInWeek.filter { day in
             !weightsForWeek.contains { weight in
-                calendar.isDate(weight.date, inSameDayAs: day ?? Date())
+                calendar.isDate(weight.date, inSameDayAs: day!)
             }
         }
         
-        let nonexistentWeights = missingDays.map { DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT, date: $0 ?? Date()) }
+        let nonexistentWeights = missingDays.map { DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT, date: $0!) }
         
         return nonexistentWeights
     }

@@ -54,11 +54,13 @@ struct ContentView: View {
             }
             .background(.japandiOffWhite)
             .onAppear {
-//                guard !dateEntries.isEmpty else {
-//                    return
-//                }
-//                clearWeights()
-//                seedData()
+                #if DEBUG
+                //                guard !dateEntries.isEmpty else {
+                //                    return
+                //                }
+//                                clearWeights()
+//                                seedData()
+                #endif
                 entryStep = getEntryStep()
             }
             .onChange(of: scenePhase) { _, _ in entryStep = getEntryStep() }
@@ -98,55 +100,41 @@ struct ContentView: View {
             
             if todaysWeightExists {
                 dateEntries.last!.calories = calories
-            }
-        } else {
-            let newWeight = DateEntry(weight, calories)
-            context.insert(newWeight)
-        }
-        }
-        
-        
-        func isSunday() -> Bool {
-            return Calendar.current.component(.weekday, from: Date()) == 7
-        }
-        
-        func clearWeights() {
-            try? context.delete(model: DateEntry.self)
-        }
-        
-        func getEntryStep() -> EntryStep {
-            if let lastDateEntry = dateEntries.last {
-                let dateEntryExists = Calendar.current.isDateInToday(lastDateEntry.date)
-                if dateEntryExists {
-                    if lastDateEntry.calories == nil {
-                        return .CalorieEntry
-                    } else {
-                        return .WeightAndCaloriesEnteredToday
-                    }
-                }
             } else {
-                return .WeightEntry
+                let newWeight = DateEntry(weight, calories)
+                context.insert(newWeight)
             }
-            return .WeightEntry
         }
-        
-        let formatFloat = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
-        
-        func getSunday(for date: Date) -> Date {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.weekday], from: calendar.startOfDay(for: date))
-            
-            if let weekday = components.weekday {
-                let daysToSunday = (weekday - calendar.firstWeekday + 7) % 7
-                return calendar.startOfDay(for: calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date)
-            }
-            
-            let sunday = calendar.startOfDay(for: date)
-            return sunday
-        }
-        
     }
     
+    
+    func isSunday() -> Bool {
+        return Calendar.current.component(.weekday, from: Date()) == 7
+    }
+    
+    func clearWeights() {
+        try? context.delete(model: DateEntry.self)
+    }
+    
+    func getEntryStep() -> EntryStep {
+        if let lastDateEntry = dateEntries.last {
+            let dateEntryExists = Calendar.current.isDateInToday(lastDateEntry.date)
+            if dateEntryExists {
+                if lastDateEntry.calories == nil {
+                    return .CalorieEntry
+                } else {
+                    return .WeightAndCaloriesEnteredToday
+                }
+            }
+        } else {
+            return .WeightEntry
+        }
+        return .WeightEntry
+    }
+    
+    let formatFloat = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().modelContainer(for: [DateEntry.self, Goal.self], inMemory: true)

@@ -10,7 +10,7 @@ import SwiftUI
 struct WeekBubble: View {
     private let datePadding: CGFloat = 15
     var averageWeight: Float
-    var weights: [DateEntry]
+    var dateEntries: [DateEntry]
     
     var isFullWeek: Bool
 //    var didMeetGoal: Bool
@@ -22,7 +22,7 @@ struct WeekBubble: View {
                 .overlay (
                     ZStack {
                         HStack {
-                            Text((formatDate(weights.first!.date)))
+                            Text((formatDate(getSunday(for: dateEntries.first!.date))))
                                 .padding(.leading, datePadding)
                                 .foregroundColor(.japandiGray)
                                 .font(.custom("JapandiRegular", size: 13))
@@ -37,19 +37,19 @@ struct WeekBubble: View {
                         }
                         .foregroundColor(.japandiDarkGray)
                         
-                        HStack {
-                            Spacer()
-                            Text("lbs").font(.custom("JapandiRegular", size: 10))
-                                .kerning(1)
-                                .padding(.leading, 50)
-                                .padding(.top, 5)
-                            Spacer()
-                        }
-                        .foregroundColor(.japandiDarkGray)
+//                        HStack {
+//                            Spacer()
+//                            Text("lbs").font(.custom("JapandiRegular", size: 10))
+//                                .kerning(1)
+//                                .padding(.leading, 50)
+//                                .padding(.top, 5)
+//                            Spacer()
+//                        }
+//                        .foregroundColor(.japandiDarkGray)
                         
                         HStack {
                             Spacer()
-                            Text(formatDate(weights.last!.date))
+                            Text(formatDate(getSaturday(for: dateEntries.first!.date)))
                                 .padding(.trailing, datePadding)
                                 .font(.custom("JapandiRegular", size: 13))
                                 .foregroundColor(.japandiGray)
@@ -90,5 +90,5 @@ struct WeekBubble: View {
 }
 
 #Preview {
-    WeekBubble(averageWeight: 125, weights: [], isFullWeek: false)
+    WeekBubble(averageWeight: 125, dateEntries: [], isFullWeek: false)
 }

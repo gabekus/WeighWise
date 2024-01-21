@@ -7,11 +7,13 @@
 
 import Foundation
 import SwiftUI
-                    
+
 struct DayBubble: View {
     @Environment(\.modelContext) private var context
     let diameter: CGFloat = 45
     var dayOfWeek: Int
+    
+    @State private var isPriorWeek = false
     
     @State var dateEntry: DateEntry
     
@@ -22,7 +24,7 @@ struct DayBubble: View {
                 .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? .japandiMintGreen : .japandiDarkGray))
             Circle()
                 .frame(width: diameter)
-                .foregroundColor(dateEntry.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? .japandiRed : .japandiLightBrown : .japandiMintGreen)
+                .foregroundColor(dateEntry.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) && !isPriorWeek ? .japandiRed : .japandiLightBrown : .japandiMintGreen)
                 .overlay(
                     (dateEntry.weight == NONEXISTENT_WEIGHT ? Text(" ") : getOverlayText(dateEntry.weight))
                         .overlay(
@@ -43,11 +45,14 @@ struct DayBubble: View {
                     Text(" ")
                 }
             }
-                .font(.custom("JapandiRegular", size: 8))
-                .foregroundColor(Color(.japandiDarkGray))
-            }
+            .font(.custom("JapandiRegular", size: 8))
+            .foregroundColor(Color(.japandiDarkGray))
+        }
+        .onAppear {
+            isPriorWeek = dateEntry.date < getSunday(for: Date())
         }
     }
+}
 
 
 func isDayOfWeekAfterCurrentDay(_ day: Int) -> Bool {

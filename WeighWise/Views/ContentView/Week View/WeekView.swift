@@ -15,6 +15,7 @@ struct WeekView: View {
     @State private var currentWeeksWeights: [DateEntry] = []
     @Environment(\.scenePhase) private var scenePhase
     @State private var weekAverage: Float = 0
+    @State private var headerText: String = ""
     
     var pastWeights: [DateEntry] = []
     
@@ -48,6 +49,11 @@ struct WeekView: View {
                         }
                             let newWeekAverage = calculateAverage(of: currentWeeksWeights)
                             weekAverage = newWeekAverage
+                        if pastWeights.isEmpty {
+                            headerText = "This Week's Average"
+                        } else {
+                            headerText = "Average For \(formatDate(getSunday(for: pastWeights.first!.date)))"
+                        }
                     } catch {
                         print("Error \(error)")
                     }
@@ -77,7 +83,8 @@ struct WeekView: View {
             .background(.japandiOffWhite)
             
             VStack {
-                Text("This Week's Average").font(.custom("JapandiRegular", size: 25)).foregroundColor(.japandiDarkGray)
+               
+                Text(headerText).font(.custom("JapandiRegular", size: 25)).foregroundColor(.japandiDarkGray)
                     .padding(50)
                     .kerning(1)
                 HStack {
@@ -92,7 +99,17 @@ struct WeekView: View {
             
         }
     }
+    
+    func formatDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd yyyy"
+
+        let currentDate = Date()
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate
+    }
 }
+
 
 func calculateAverage(of array: [DateEntry]) -> Float {
     let nonNilWeights = array.compactMap { $0.weight > 0 ? $0.weight : nil }
@@ -113,6 +130,19 @@ func getSunday(for date: Date) -> Date {
     let sunday = calendar.startOfDay(for: date)
     return sunday
 }
+
+func getSaturday(for date: Date) -> Date {
+    let calendar = Calendar.current
+    let components = calendar.dateComponents([.weekday], from: calendar.startOfDay(for: date))
+    
+    if let weekday = components.weekday {
+        let daysToSaturday = (weekday - calendar.firstWeekday + 1) % 7
+        return calendar.startOfDay(for: calendar.date(byAdding: .day, value: daysToSaturday, to: date)!) // Force unwrap here
+    }
+    
+    return calendar.startOfDay(for: date)
+}
+
 
 let formatFloat = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
 

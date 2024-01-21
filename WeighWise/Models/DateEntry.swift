@@ -14,7 +14,7 @@ import SwiftData
     var calories: Float?
     
     init(_ weight: Float, _ calories: Float?, date: Date = Date()) {
-        self.date = Date()
+        self.date = date
         self.weight = weight
         self.calories = calories
     }
