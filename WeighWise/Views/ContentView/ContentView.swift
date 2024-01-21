@@ -54,14 +54,14 @@ struct ContentView: View {
             }
             .background(.japandiOffWhite)
             .onAppear {
-                guard !dateEntries.isEmpty else {
-                    return
-                }
-                clearWeights()
-                seedData()
-                entryStep = .WeightEntry //getEntryStep()
+//                guard !dateEntries.isEmpty else {
+//                    return
+//                }
+//                clearWeights()
+//                seedData()
+                entryStep = getEntryStep()
             }
-            .onChange(of: scenePhase) { _, _ in entryStep = .WeightEntry }
+            .onChange(of: scenePhase) { _, _ in entryStep = getEntryStep() }
         }
     }
     
@@ -95,14 +95,15 @@ struct ContentView: View {
         
         if let lastDate = dateEntries.last?.date {
             let todaysWeightExists = calendar.startOfDay(for: lastDate) == calendar.startOfDay(for: Date())
+            
             if todaysWeightExists {
                 dateEntries.last!.calories = calories
-            } else {
-                let newWeight = DateEntry(weight, calories)
-                context.insert(newWeight)
             }
+        } else {
+            let newWeight = DateEntry(weight, calories)
+            context.insert(newWeight)
         }
-    }
+        }
         
         
         func isSunday() -> Bool {
@@ -113,17 +114,21 @@ struct ContentView: View {
             try? context.delete(model: DateEntry.self)
         }
         
-        func getIsWeightLoggedToday(_ weights: [DateEntry]) -> Bool {
-            let _isWeightLoggedToday: Bool
-            if let lastWeight = weights.last?.date {
-                _isWeightLoggedToday = Calendar.current.isDateInToday(lastWeight)
+        func getEntryStep() -> EntryStep {
+            if let lastDateEntry = dateEntries.last {
+                let dateEntryExists = Calendar.current.isDateInToday(lastDateEntry.date)
+                if dateEntryExists {
+                    if lastDateEntry.calories == nil {
+                        return .CalorieEntry
+                    } else {
+                        return .WeightAndCaloriesEnteredToday
+                    }
+                }
             } else {
-                _isWeightLoggedToday = false
+                return .WeightEntry
             }
-            return _isWeightLoggedToday
+            return .WeightEntry
         }
-        
-        
         
         let formatFloat = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
         
@@ -133,10 +138,11 @@ struct ContentView: View {
             
             if let weekday = components.weekday {
                 let daysToSunday = (weekday - calendar.firstWeekday + 7) % 7
-                return calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date
+                return calendar.startOfDay(for: calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date)
             }
             
-            return calendar.startOfDay(for: date)
+            let sunday = calendar.startOfDay(for: date)
+            return sunday
         }
         
     }

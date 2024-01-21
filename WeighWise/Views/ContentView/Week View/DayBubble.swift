@@ -36,14 +36,19 @@ struct DayBubble: View {
                             }
                         )
                 )
-            if ![NONEXISTENT_WEIGHT, nil].contains(dateEntry.calories) {
-                Text("\(formatFloat(dateEntry.calories!))")
+            HStack {
+                if ![NONEXISTENT_WEIGHT, nil].contains(dateEntry.calories) {
+                    Text("\(formatFloat(dateEntry.calories!))")
+                } else {
+                    Text(" ")
+                }
+            }
                 .font(.custom("JapandiRegular", size: 8))
                 .foregroundColor(Color(.japandiDarkGray))
             }
         }
     }
-}
+
 
 func isDayOfWeekAfterCurrentDay(_ day: Int) -> Bool {
     let date = getSunday(for: Date()).addingTimeInterval(TimeInterval((day - 1) * 24 * 60 * 60))

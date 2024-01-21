@@ -11,7 +11,7 @@ import SwiftData
 
 struct WeekView: View {
     @Environment(\.modelContext) private var context
-    @Query private var weights: [DateEntry] = [DateEntry(5, 5)]
+    @Query private var dateEntries: [DateEntry] = []
     @State private var currentWeeksWeights: [DateEntry] = []
     @Environment(\.scenePhase) private var scenePhase
     @State private var weekAverage: Float = 0
@@ -34,7 +34,7 @@ struct WeekView: View {
                 }.onAppear {
                     do {
                         if pastWeights.isEmpty {
-                            var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
+                            var currentWeeksWeightsResult = try getCurrentWeeksWeights(dateEntries)
                             currentWeeksWeights = []
                             for i in 1...7 {
                                 if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
@@ -55,7 +55,7 @@ struct WeekView: View {
                 .onChange(of: scenePhase) {
                     do {
                         if currentWeeksWeights.isEmpty {
-                            var currentWeeksWeightsResult = try getCurrentWeeksWeights(weights)
+                            var currentWeeksWeightsResult = try getCurrentWeeksWeights(dateEntries)
                             currentWeeksWeights = []
                             for i in 1...7 {
                                 if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
@@ -107,16 +107,20 @@ func getSunday(for date: Date) -> Date {
     
     if let weekday = components.weekday {
         let daysToSunday = (weekday - calendar.firstWeekday + 7) % 7
-        return calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date
+        return calendar.startOfDay(for: calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date)
     }
     
-    return calendar.startOfDay(for: date)
+    let sunday = calendar.startOfDay(for: date)
+    return sunday
 }
 
 let formatFloat = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
 
-func getCurrentWeeksWeights(_ weights: [DateEntry]) throws -> [DateEntry] {
-    return weights.filter { $0.date >= getSunday(for: Date()) }
+func getCurrentWeeksWeights(_ weights: [DateEntry]) throws -> [DateEntry] { 
+    let calendar = Calendar.current
+    let sundayDate = getSunday(for: Date())
+    let currentWeeksWeights = weights.filter { calendar.startOfDay(for: $0.date) >= sundayDate }
+    return currentWeeksWeights
 }
 
 

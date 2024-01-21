@@ -39,7 +39,7 @@ struct WeekBubble: View {
                         
                         HStack {
                             Spacer()
-                            Text(" lbs").font(.custom("JapandiRegular", size: 10))
+                            Text("lbs").font(.custom("JapandiRegular", size: 10))
                                 .kerning(1)
                                 .padding(.leading, 50)
                                 .padding(.top, 5)
