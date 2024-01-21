@@ -22,7 +22,7 @@ struct WeekBubble: View {
                 .overlay (
                     ZStack {
                         HStack {
-                            Text((formatDate(getSunday(for: dateEntries.first!.date))))
+                            Text((formatDate(dateEntries.first!.date)))
                                 .padding(.leading, datePadding)
                                 .foregroundColor(.japandiGray)
                                 .font(.custom("JapandiRegular", size: 13))
@@ -49,7 +49,7 @@ struct WeekBubble: View {
                         
                         HStack {
                             Spacer()
-                            Text(formatDate(getSaturday(for: dateEntries.first!.date)))
+                            Text(formatDate(dateEntries.last!.date))
                                 .padding(.trailing, datePadding)
                                 .font(.custom("JapandiRegular", size: 13))
                                 .foregroundColor(.japandiGray)

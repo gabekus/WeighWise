@@ -93,6 +93,7 @@ struct ContentView: View {
     }
     
     func addDateEntry(_ weight: Float, _ calories: Float?) {
+        #if DEBUG
         let calendar = Calendar.current
         
         if let lastDate = dateEntries.last?.date {
@@ -105,6 +106,7 @@ struct ContentView: View {
                 context.insert(newWeight)
             }
         }
+        #endif
     }
     
     
@@ -113,7 +115,9 @@ struct ContentView: View {
     }
     
     func clearWeights() {
+        #if DEBUG
         try? context.delete(model: DateEntry.self)
+        #endif
     }
     
     func getEntryStep() -> EntryStep {

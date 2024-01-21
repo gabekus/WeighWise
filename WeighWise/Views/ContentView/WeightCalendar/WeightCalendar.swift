@@ -104,11 +104,13 @@ struct WeightCalendar: View {
     }
     
     func seedData() {
+#if DEBUG
         for i in 0...35 {
             let weight = DateEntry(Float(Int.random(in: 138..<143)), 1500)
             weight.date = Calendar.current.date(byAdding: .day, value: -i, to: weight.date)!
             context.insert(weight)
         }
+#endif
     }
     
     func formatMonth(_ month: Int) -> String {
@@ -219,7 +221,7 @@ struct WeightCalendar: View {
         let calendar = Calendar.current
         let sundayDate = getSunday(for: weightsForWeek.first!.date)
         
-        let daysInWeek = (0...7).map { calendar.date(byAdding: .day, value: $0, to: sundayDate) }
+        let daysInWeek = (0..<7).map { calendar.date(byAdding: .day, value: $0, to: sundayDate) }
         
         let missingDays = daysInWeek.filter { day in
             !weightsForWeek.contains { weight in
