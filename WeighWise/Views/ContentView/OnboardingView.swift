@@ -24,120 +24,122 @@ struct OnboardingView: View {
     @State private var goalPoundsPerWeek: Float = 0
     
     var body: some View {
-        VStack {
-            switch(step) {
-            case .WeightEntry:
-                WeightEntryView(headerText: "Enter current weight") { weight in
-                    step = OnboardingStep.GoalDirectionEntry
-                    startingWeight = weight
-                }
-                
-            case .GoalDirectionEntry:
-                ZStack {
-                    VStack {
-                        Spacer()
-                        HStack {
+        NavigationView {
+            VStack {
+                switch(step) {
+                case .WeightEntry:
+                    NumberEntryView(headerText: "Enter current weight") { weight in
+                        step = OnboardingStep.GoalDirectionEntry
+                        startingWeight = weight
+                    }
+                    
+                case .GoalDirectionEntry:
+                    ZStack {
+                        VStack {
                             Spacer()
-                            Text("I'm trying to").font(.custom("JapandiRegular", size: 25)).foregroundColor(.japandiDarkGray)
+                            HStack {
+                                Spacer()
+                                Text("I'm trying to").font(.custom("JapandiRegular", size: 25)).foregroundColor(.japandiDarkGray)
+                                Spacer()
+                            }
+                            Spacer()
                             Spacer()
                         }
-                        Spacer()
-                        Spacer()
+                        .background(.japandiOffWhite)
+                        
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Button {
+                                    goalDirection = .WeightLoss
+                                    step = .GoalPoundsEntry
+                                } label: {
+                                    Text("Lose Weight")
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .font(.custom("JapandiRegular", fixedSize: 18))
+                                        .kerning(2)
+                                        .foregroundColor(.japandiDarkGray)
+                                }
+                                .cornerRadius(.infinity)
+                                .frame(width: 175, height: 45)
+                                .buttonStyle(.borderedProminent)
+                                .tint(.japandiLightGray)
+                                
+                                Button {
+                                    goalDirection = .WeightGain
+                                    step = .GoalPoundsEntry
+                                } label: {
+                                    Text("Gain Weight")
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        .font(.custom("JapandiRegular", fixedSize: 18))
+                                        .kerning(2)
+                                        .foregroundColor(.japandiDarkGray)
+                                }
+                                .cornerRadius(.infinity)
+                                .frame(width: 175, height: 45)
+                                .buttonStyle(.borderedProminent)
+                                .tint(.japandiLightBrown)
+                                
+                            }
+                            Spacer()
+                        }
                     }
-                    .background(.japandiOffWhite)
                     
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Button {
-                                goalDirection = .WeightLoss
-                                step = .GoalPoundsEntry
+                case .GoalPoundsEntry:
+                    NumberEntryView(headerText: "Goal per week to  \(goalDirection == .WeightGain ? "gain" : "lose")(lbs)") { weight in
+                        goalPoundsPerWeek = weight
+                        upsertGoal()
+                        step = .Onboarded
+                    }
+                    
+                case .Onboarded:
+                    ZStack {
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                WeightChange(goalDirection: goals.first!.goalDirection, weightChange: getGoalPoundsPerWeek())
+                                    .padding(.bottom, 200)
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                        .background(.japandiOffWhite)
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Text("Your Goal")
+                                    .font(.custom("JapandiRegular", size: 25))
+                                    .foregroundColor(.japandiDarkGray)
+                                    .kerning(1)
+                                Spacer()
+                            }
+                            .padding(50)
+                            Spacer()
+                            Button() {
+                                step = .WeightEntry
+                                editGoal()
                             } label: {
-                                Text("Lose Weight")
+                                Text("Edit")
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .font(.custom("JapandiRegular", fixedSize: 18))
+                                    .font(.custom("JapandiRegular", fixedSize: 20))
                                     .kerning(2)
                                     .foregroundColor(.japandiDarkGray)
                             }
                             .cornerRadius(.infinity)
-                            .frame(width: 175, height: 45)
-                            .buttonStyle(.borderedProminent)
-                            .tint(.japandiLightGray)
-                            
-                            Button {
-                                goalDirection = .WeightGain
-                                step = .GoalPoundsEntry
-                            } label: {
-                                Text("Gain Weight")
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .font(.custom("JapandiRegular", fixedSize: 18))
-                                    .kerning(2)
-                                    .foregroundColor(.japandiDarkGray)
-                            }
-                            .cornerRadius(.infinity)
-                            .frame(width: 175, height: 45)  // Adjust width and height as needed
+                            .frame(width: 150, height: 45)
+                            .padding(.bottom, 200)
                             .buttonStyle(.borderedProminent)
                             .tint(.japandiLightBrown)
                             
                         }
-                        Spacer()
-                    }
-                }
-                
-            case .GoalPoundsEntry:
-                WeightEntryView(headerText: "Goal per week to  \(goalDirection == .WeightGain ? "gain" : "lose")(lbs)") { weight in
-                    goalPoundsPerWeek = weight
-                    upsertGoal()
-                    step = .Onboarded
-                }
-                
-            case .Onboarded:
-                ZStack {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            WeightChange(goalDirection: goals.first!.goalDirection, weightChange: getGoalPoundsPerWeek())
-                                .padding(.bottom, 200)
-                            Spacer()
-                        }
-                        Spacer()
-                    }
-                    .background(.japandiOffWhite)
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Text("Your Goal")
-                                .font(.custom("JapandiRegular", size: 25))
-                                .foregroundColor(.japandiDarkGray)
-                                .kerning(1)
-                            Spacer()
-                        }
-                        .padding(50)
-                        Spacer()
-                        Button() {
-                            step = .WeightEntry
-                            editGoal()
-                        } label: {
-                            Text("Edit")
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .font(.custom("JapandiRegular", fixedSize: 20))
-                                .kerning(2)
-                                .foregroundColor(.japandiDarkGray)
-                        }
-                        .cornerRadius(.infinity)
-                        .frame(width: 150, height: 45)
-                        .padding(.bottom, 200)
-                        .buttonStyle(.borderedProminent)
-                        .tint(.japandiLightBrown)
-                        
                     }
                 }
             }
-        }
-        .onAppear {
-            if goals.count == 1 {
-                step = .Onboarded
+            .onAppear {
+                if goals.count == 1 {
+                    step = .Onboarded
+                }
             }
         }
     }

@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct WeightEntryView: View {
+struct NumberEntryView: View {
     @Environment(\.modelContext) private var context
     @State var weightInput: String = ""
-    @Query private var weights: [Weight] = []
+    @Query private var weights: [DateEntry] = []
     
     var headerText: String
     var callback: (Float) -> Void

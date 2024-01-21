@@ -12,23 +12,24 @@ import SwiftData
 
 struct WeightCalendar: View {
     @Environment(\.modelContext) private var context
-    @Query private var weights: [Weight]
+    @Query private var weights: [DateEntry]
+    @Query private var goal: [Goal]
     
     var body: some View {
-        ZStack {
-            VStack {
-                Spacer()
-                HStack {
+        NavigationView {
+            ZStack {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                    }
                     Spacer()
                 }
-                Spacer()
-            }
-            
-            VStack {
-                if weights.count > 0 {
-                    let viewmodel = getWeightCalendarViewModel(weights)
-                    HStack {
-                        NavigationView {
+                
+                VStack {
+                    if weights.count > 0 {
+                        let viewmodel = getWeightCalendarViewModel(weights)
+                        HStack {
                             ScrollView {
                                 VStack {
                                     ForEach(viewmodel.sorted(by: { $0.key > $1.key}), id: \.key) { year, months in
@@ -55,21 +56,56 @@ struct WeightCalendar: View {
                                         }
                                     }
                                 }
+                                
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(.japandiOffWhite)
                             }
-                            
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(.japandiOffWhite)
                         }
                     }
                 }
             }
+            .onAppear {
+            }
+            .background(.japandiOffWhite)
         }
-        .background(.japandiOffWhite)
+    }
+    
+    func getLastWeeksAverage() -> Float {
+        let calendar = Calendar.current
+        let lastWeeksSaturday = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
+        let lastWeeksSunday = Calendar.current.date(byAdding: .day, value: -13, to: Date())!
+        let lastWeeksWeights = weights.filter { calendar.startOfDay(for: $0.date) > calendar.startOfDay(for: lastWeeksSunday) && $0.date < calendar.startOfDay(for: lastWeeksSaturday)}
+        
+        return calculateAverage(of: lastWeeksWeights)
+    }
+    
+    func didMeetGoal() -> Bool {
+        
+        let calendar = Calendar.current
+        
+        if let weekAverage = try? calculateAverage(of: getCurrentWeeksWeights(weights)) {
+            let lastWeekHasWeightsLogged = weights.contains { calendar.startOfDay(for: $0.date) < getSunday(for: Date())}
+            guard !lastWeekHasWeightsLogged && goal.isEmpty else {
+                return false
+            }
+            
+            let goal_ = goal.first!
+            let weightToCompareTo = lastWeekHasWeightsLogged ?  getLastWeeksAverage() : goal_.startingWeight
+            let weightDelta_ = weekAverage - weightToCompareTo
+            let priorWeight = weightToCompareTo
+            let newWeight = weekAverage
+            let weightDelta = abs(weightDelta_)
+            let weightDirection: GoalDirection = weightDelta_ < 0 ? .WeightLoss : .WeightGain
+            
+            return weightDirection == goal.first!.goalDirection
+        } else {
+            return false
+        }
     }
     
     func seedData() {
         for i in 0...35 {
-            let weight = Weight(Float(Int.random(in: 138..<143)))
+            let weight = DateEntry(Float(Int.random(in: 138..<143)), 1500)
             weight.date = Calendar.current.date(byAdding: .day, value: -i, to: weight.date)!
             context.insert(weight)
         }
@@ -107,7 +143,7 @@ struct WeightCalendar: View {
     struct WeightWeek: Identifiable {
         let id = UUID()
         var averageWeight: Float
-        var days: [Weight]
+        var days: [DateEntry]
     }
     
     func formatYear(_ year: Int) -> String {
@@ -115,7 +151,7 @@ struct WeightCalendar: View {
         return yearString.replacingOccurrences(of: ",", with: "")
     }
     
-    func getWeightCalendarViewModel(_ weights: [Weight]) -> [Int: [Int: [Date: WeightWeek]]] {
+    func getWeightCalendarViewModel(_ weights: [DateEntry]) -> [Int: [Int: [Date: WeightWeek]]] {
         guard !weights.isEmpty else {
             return [:]
         }
@@ -144,7 +180,7 @@ struct WeightCalendar: View {
                 return (weightDate > start || calendar.isDate(weightDate, inSameDayAs: start)) && weightDate < end
             }
             
-            var fullWeek: [Weight] = weightsForCurrentWeek
+            var fullWeek: [DateEntry] = weightsForCurrentWeek
             if weightsForCurrentWeek.count < 7 {
                 let missingWeights = getMissingWeightDays(weightsForCurrentWeek)
                 fullWeek += missingWeights
@@ -179,7 +215,7 @@ struct WeightCalendar: View {
         return weightYears
     }
     
-    func getMissingWeightDays(_ weightsForWeek: [Weight]) -> [Weight] {
+    func getMissingWeightDays(_ weightsForWeek: [DateEntry]) -> [DateEntry] {
         let calendar = Calendar.current
         let sundayDate = getSunday(for: weightsForWeek.first!.date)
         
@@ -191,17 +227,17 @@ struct WeightCalendar: View {
             }
         }
         
-        let nonexistentWeights = missingDays.map { Weight(NONEXISTENT_WEIGHT, date: $0 ?? Date()) }
+        let nonexistentWeights = missingDays.map { DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT, date: $0 ?? Date()) }
         
         return nonexistentWeights
     }
     
-    func calculateAverageWeight(_ weights: [Weight]) -> Float {
+    func calculateAverageWeight(_ weights: [DateEntry]) -> Float {
         return weights.reduce(0.0) { $0 + $1.weight } / Float(weights.filter { $0.weight != NONEXISTENT_WEIGHT}.count)
     }
 }
 
 #Preview {
     WeightCalendar()
-        .modelContainer(for: Weight.self, inMemory: true)
+        .modelContainer(for: DateEntry.self, inMemory: true)
 }

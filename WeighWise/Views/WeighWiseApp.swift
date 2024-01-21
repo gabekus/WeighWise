@@ -15,6 +15,6 @@ struct WeighWiseApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [Weight.self, Goal.self])
+        .modelContainer(for: [DateEntry.self, Goal.self])
     }
 }

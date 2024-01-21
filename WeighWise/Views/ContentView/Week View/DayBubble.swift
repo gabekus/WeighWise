@@ -7,12 +7,13 @@
 
 import Foundation
 import SwiftUI
-
+                    
 struct DayBubble: View {
+    @Environment(\.modelContext) private var context
     let diameter: CGFloat = 45
     var dayOfWeek: Int
     
-    @State var weight: Weight
+    @State var dateEntry: DateEntry
     
     var body: some View {
         VStack {
@@ -21,9 +22,9 @@ struct DayBubble: View {
                 .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? .japandiMintGreen : .japandiDarkGray))
             Circle()
                 .frame(width: diameter)
-                .foregroundColor(weight.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? .japandiRed : .japandiLightBrown : .japandiMintGreen)
+                .foregroundColor(dateEntry.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) ? .japandiRed : .japandiLightBrown : .japandiMintGreen)
                 .overlay(
-                    (weight.weight == NONEXISTENT_WEIGHT ? Text(" ") : getOverlayText(weight.weight))
+                    (dateEntry.weight == NONEXISTENT_WEIGHT ? Text(" ") : getOverlayText(dateEntry.weight))
                         .overlay(
                             GeometryReader { geometry in
                                 Path { path in
@@ -35,6 +36,11 @@ struct DayBubble: View {
                             }
                         )
                 )
+            if ![NONEXISTENT_WEIGHT, nil].contains(dateEntry.calories) {
+                Text("\(formatFloat(dateEntry.calories!))")
+                .font(.custom("JapandiRegular", size: 8))
+                .foregroundColor(Color(.japandiDarkGray))
+            }
         }
     }
 }
@@ -49,7 +55,7 @@ func isDayCurrentDay(_ day: Int) -> Bool {
 }
 
 func getOverlayText(_ weight: Float) -> Text {
-    return Text("\(formatWeight(weight))")
+    return Text("\(formatFloat(weight))")
         .foregroundColor(Color("JapandiOffWhite"))
         .font(.custom("JapandiRegular", size: 15))
 }

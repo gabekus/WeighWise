@@ -12,12 +12,12 @@
 		5C0DAE592B4CFA2100268631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE582B4CFA2100268631 /* Assets.xcassets */; };
 		5C0DAE5C2B4CFA2100268631 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE5B2B4CFA2100268631 /* Preview Assets.xcassets */; };
 		5C0DAE632B4CFA7700268631 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE622B4CFA7700268631 /* Constants.swift */; };
-		5C0DAE672B4CFA8000268631 /* WeightEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE652B4CFA8000268631 /* WeightEntryView.swift */; };
+		5C0DAE672B4CFA8000268631 /* NumberEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE652B4CFA8000268631 /* NumberEntryView.swift */; };
 		5C0DAE682B4CFA8000268631 /* EntryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE662B4CFA8000268631 /* EntryButton.swift */; };
 		5C0DAE732B4CFA8D00268631 /* Japandi Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6A2B4CFA8D00268631 /* Japandi Regular.otf */; };
 		5C0DAE742B4CFA8D00268631 /* Japandi-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6B2B4CFA8D00268631 /* Japandi-Light.otf */; };
 		5C0DAE752B4CFA8D00268631 /* Japandi Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6C2B4CFA8D00268631 /* Japandi Bold.otf */; };
-		5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6E2B4CFA8D00268631 /* Weight.swift */; };
+		5C0DAE762B4CFA8D00268631 /* DateEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE6E2B4CFA8D00268631 /* DateEntry.swift */; };
 		5C0DAE782B4CFA8D00268631 /* DayBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE712B4CFA8D00268631 /* DayBubble.swift */; };
 		5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DAE722B4CFA8D00268631 /* WeekView.swift */; };
 		5C0DAE7B2B4CFAA500268631 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C0DAE7A2B4CFAA500268631 /* README.md */; };
@@ -39,12 +39,12 @@
 		5C0DAE582B4CFA2100268631 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C0DAE5B2B4CFA2100268631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5C0DAE622B4CFA7700268631 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		5C0DAE652B4CFA8000268631 /* WeightEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightEntryView.swift; sourceTree = "<group>"; };
+		5C0DAE652B4CFA8000268631 /* NumberEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberEntryView.swift; sourceTree = "<group>"; };
 		5C0DAE662B4CFA8000268631 /* EntryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryButton.swift; sourceTree = "<group>"; };
 		5C0DAE6A2B4CFA8D00268631 /* Japandi Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi Regular.otf"; sourceTree = "<group>"; };
 		5C0DAE6B2B4CFA8D00268631 /* Japandi-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi-Light.otf"; sourceTree = "<group>"; };
 		5C0DAE6C2B4CFA8D00268631 /* Japandi Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Japandi Bold.otf"; sourceTree = "<group>"; };
-		5C0DAE6E2B4CFA8D00268631 /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
+		5C0DAE6E2B4CFA8D00268631 /* DateEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateEntry.swift; sourceTree = "<group>"; };
 		5C0DAE712B4CFA8D00268631 /* DayBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayBubble.swift; sourceTree = "<group>"; };
 		5C0DAE722B4CFA8D00268631 /* WeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		5C0DAE7A2B4CFAA500268631 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		5C0DAE642B4CFA8000268631 /* WeightEntry */ = {
 			isa = PBXGroup;
 			children = (
-				5C0DAE652B4CFA8000268631 /* WeightEntryView.swift */,
+				5C0DAE652B4CFA8000268631 /* NumberEntryView.swift */,
 				5C0DAE662B4CFA8000268631 /* EntryButton.swift */,
 			);
 			path = WeightEntry;
@@ -136,7 +136,7 @@
 		5C0DAE6D2B4CFA8D00268631 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5C0DAE6E2B4CFA8D00268631 /* Weight.swift */,
+				5C0DAE6E2B4CFA8D00268631 /* DateEntry.swift */,
 				5C9AE1342B4DFDFA0044F8AD /* Goal.swift */,
 			);
 			path = Models;
@@ -283,13 +283,13 @@
 				5C7316882B54FEA500068AD9 /* WeekSummaryView.swift in Sources */,
 				5C0DAE682B4CFA8000268631 /* EntryButton.swift in Sources */,
 				5C0DAE552B4CFA1F00268631 /* ContentView.swift in Sources */,
-				5C0DAE672B4CFA8000268631 /* WeightEntryView.swift in Sources */,
+				5C0DAE672B4CFA8000268631 /* NumberEntryView.swift in Sources */,
 				5C0DAE532B4CFA1F00268631 /* WeighWiseApp.swift in Sources */,
 				5C9AE1352B4DFDFA0044F8AD /* Goal.swift in Sources */,
 				5C0DAE782B4CFA8D00268631 /* DayBubble.swift in Sources */,
 				5C0DAE632B4CFA7700268631 /* Constants.swift in Sources */,
 				5C0DAE792B4CFA8D00268631 /* WeekView.swift in Sources */,
-				5C0DAE762B4CFA8D00268631 /* Weight.swift in Sources */,
+				5C0DAE762B4CFA8D00268631 /* DateEntry.swift in Sources */,
 				5C578F0A2B550FE4003ACF64 /* WeightChange.swift in Sources */,
 				5C0DAE802B4D64BF00268631 /* HealthKitManager.swift in Sources */,
 				5CA2E5BB2B50DE2C00EF2DE5 /* WeekBubble.swift in Sources */,

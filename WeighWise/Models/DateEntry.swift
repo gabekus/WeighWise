@@ -8,13 +8,15 @@
 import Foundation
 import SwiftData
 
-@Model class Weight: Identifiable {
+@Model class DateEntry: Identifiable {
     var date: Date
     var weight: Float
+    var calories: Float?
     
-    init(_ weight: Float, date: Date = Date()) {
+    init(_ weight: Float, _ calories: Float?, date: Date = Date()) {
         self.date = Date()
         self.weight = weight
+        self.calories = calories
     }
 }
 

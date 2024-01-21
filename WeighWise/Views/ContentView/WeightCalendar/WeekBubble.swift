@@ -10,14 +10,15 @@ import SwiftUI
 struct WeekBubble: View {
     private let datePadding: CGFloat = 15
     var averageWeight: Float
-    var weights: [Weight]
+    var weights: [DateEntry]
     
     var isFullWeek: Bool
+//    var didMeetGoal: Bool
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: .infinity)
-                .fill(.japandiLightBrown)
+                .fill(isFullWeek ? .japandiMintGreen : .japandiRed)
                 .overlay (
                     ZStack {
                         HStack {
@@ -30,11 +31,21 @@ struct WeekBubble: View {
                         
                         HStack {
                             Spacer()
-                            Text(formatWeight(averageWeight))
+                            Text(formatFloat(averageWeight))
                                 .font(.custom("JapandiRegular", size: 20))
-                                .foregroundColor(.japandiDarkGray)
                             Spacer()
                         }
+                        .foregroundColor(.japandiDarkGray)
+                        
+                        HStack {
+                            Spacer()
+                            Text(" lbs").font(.custom("JapandiRegular", size: 10))
+                                .kerning(1)
+                                .padding(.leading, 50)
+                                .padding(.top, 5)
+                            Spacer()
+                        }
+                        .foregroundColor(.japandiDarkGray)
                         
                         HStack {
                             Spacer()
@@ -47,11 +58,11 @@ struct WeekBubble: View {
                 )
                 .frame(width: 325, height: 50)
             
-            if weights.count > 6 {
-                Image(systemName: "trophy.fill")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(.trailing, 7)
-            }
+//            if didMeetGoal {
+//                Image(systemName: "trophy.fill")
+//                    .frame(maxWidth: .infinity, alignment: .trailing)
+//                    .padding(.trailing, 7)
+//            }
         }
     }
     
@@ -72,7 +83,6 @@ struct WeekBubble: View {
         
         let formattedDate = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "EEEE"
-        print("\(dateFormatter.string(from: date)): ", formattedDate)
         
         return formattedDate + suffix
     }

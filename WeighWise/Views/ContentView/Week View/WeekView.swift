@@ -11,12 +11,12 @@ import SwiftData
 
 struct WeekView: View {
     @Environment(\.modelContext) private var context
-    @Query private var weights: [Weight] = [Weight(5)]
-    @State private var currentWeeksWeights: [Weight] = []
+    @Query private var weights: [DateEntry] = [DateEntry(5, 5)]
+    @State private var currentWeeksWeights: [DateEntry] = []
     @Environment(\.scenePhase) private var scenePhase
     @State private var weekAverage: Float = 0
     
-    var pastWeights: [Weight] = []
+    var pastWeights: [DateEntry] = []
     
     var body: some View {
         ZStack {
@@ -26,7 +26,7 @@ struct WeekView: View {
                     Spacer()
                     if !currentWeeksWeights.isEmpty {
                         ForEach(1...7, id: \.self) { i in
-                            DayBubble(dayOfWeek: i, weight: currentWeeksWeights.indices.contains(i - 1) ? currentWeeksWeights[i - 1] : Weight(NONEXISTENT_WEIGHT))
+                            DayBubble(dayOfWeek: i, dateEntry: currentWeeksWeights.indices.contains(i - 1) ? currentWeeksWeights[i - 1] : DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT))
                             
                         }
                     }
@@ -40,7 +40,7 @@ struct WeekView: View {
                                 if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
                                     currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
                                 } else {
-                                    currentWeeksWeights.append(Weight(NONEXISTENT_WEIGHT))
+                                    currentWeeksWeights.append(DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT))
                                 }
                             }
                         } else {
@@ -61,7 +61,7 @@ struct WeekView: View {
                                 if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
                                     currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
                                 } else {
-                                    currentWeeksWeights.append(Weight(NONEXISTENT_WEIGHT))
+                                    currentWeeksWeights.append(DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT))
                                 }
                             }
                         }
@@ -80,8 +80,13 @@ struct WeekView: View {
                 Text("This Week's Average").font(.custom("JapandiRegular", size: 25)).foregroundColor(.japandiDarkGray)
                     .padding(50)
                     .kerning(1)
-                Text("\(formatWeight(weekAverage))").font(.custom("JapandiBold", size: 85)).padding(10)
-                    .foregroundColor(.japandiDarkGray)
+                HStack {
+                    Text("\(formatFloat(weekAverage))").font(.custom("JapandiBold", size: 85))
+                    +
+                    Text(" lbs").font(.custom("JapandiRegular", size: 18))
+                        .kerning(1)
+                }
+                .foregroundColor(.japandiDarkGray)
                 Spacer()
             }
             
@@ -89,19 +94,33 @@ struct WeekView: View {
     }
 }
 
-func calculateAverage(of array: [Weight]) -> Float {
+func calculateAverage(of array: [DateEntry]) -> Float {
     let nonNilWeights = array.compactMap { $0.weight > 0 ? $0.weight : nil }
     let average = nonNilWeights.isEmpty ? nil : nonNilWeights.reduce(0, +) / Float(nonNilWeights.count)
     
     return average ?? 0
 }
 
-func getCurrentWeeksWeights(_ weights: [Weight]) throws -> [Weight] {
+func getSunday(for date: Date) -> Date {
+    let calendar = Calendar.current
+    let components = calendar.dateComponents([.weekday], from: calendar.startOfDay(for: date))
+    
+    if let weekday = components.weekday {
+        let daysToSunday = (weekday - calendar.firstWeekday + 7) % 7
+        return calendar.date(byAdding: .day, value: -daysToSunday, to: date) ?? date
+    }
+    
+    return calendar.startOfDay(for: date)
+}
+
+let formatFloat = { (_ flt: Float) -> String in String(format: "%.1f", flt)}
+
+func getCurrentWeeksWeights(_ weights: [DateEntry]) throws -> [DateEntry] {
     return weights.filter { $0.date >= getSunday(for: Date()) }
 }
 
 
 #Preview {
     WeekView()
-        .modelContainer(for: Weight.self, inMemory: true)
+        .modelContainer(for: DateEntry.self, inMemory: true)
 }

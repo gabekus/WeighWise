@@ -15,17 +15,19 @@ struct WeightChange: View {
         HStack {
             Spacer()
             Image(systemName: "arrow.\(goalDirection == .WeightGain ? "up" : "down")").font(.custom("", size: 18))
-            Text("\(formatWeight(weightChange))")
+            
+            Text("\(formatFloat(weightChange))")
                 .font(.custom("JapandiRegular", size: 75))
+            
             + Text(" lbs").font(.custom("JapandiRegular", size: 18))
-                .foregroundColor(.japandiDarkGray)
                 .kerning(1)
             Spacer()
         }
+        .foregroundColor(.japandiDarkGray)
     }
 }
 
 #Preview {
     WeightCalendar()
-        .modelContainer(for: [Weight.self], inMemory: true)
+        .modelContainer(for: [DateEntry.self], inMemory: true)
 }

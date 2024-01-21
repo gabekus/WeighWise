@@ -10,7 +10,7 @@ import SwiftData
 
 struct WeekSummaryView: View {
     @Environment(\.modelContext) private var context
-    @Query var weights: [Weight] = []
+    @Query var weights: [DateEntry] = []
     @Query var goal: [Goal] = []
     @State private var counter = 0
     @State var weightDelta: Float = 0
@@ -72,10 +72,10 @@ struct WeekSummaryView: View {
             VStack {
                 Spacer()
                 HStack {
-                    Text("\(formatWeight(priorWeight))")
+                    Text("\(formatFloat(priorWeight))")
                         .font(.custom("JapandiRegular", size: 20))
                     Image(systemName: "arrow.right").font(.custom("", size: 10))
-                    Text("\(formatWeight(newWeight))")
+                    Text("\(formatFloat(newWeight))")
                         .font(.custom("JapandiRegular", size: 20))
                         .foregroundColor(getNewWeightColor())
                 }
@@ -175,5 +175,5 @@ struct WeekSummaryView: View {
 
 #Preview {
     WeekSummaryView {}
-        .modelContainer(for: [Goal.self, Weight.self], inMemory: true)
+        .modelContainer(for: [Goal.self, DateEntry.self], inMemory: true)
 }
