@@ -11,7 +11,7 @@ import SwiftUI
 struct EntryButton: View {
     private var label: String
     private let action: () -> Void
-    private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     
     init(_ label: String, action: @escaping () -> Void) {
         self.label = label

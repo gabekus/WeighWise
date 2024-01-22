@@ -12,6 +12,7 @@ struct DayBubble: View {
     @Environment(\.modelContext) private var context
     let diameter: CGFloat = 45
     var dayOfWeek: Int
+    var unitDisplay: UnitDisplay
     
     @State private var isPriorWeek = false
     
@@ -24,9 +25,9 @@ struct DayBubble: View {
                 .foregroundColor(Color(isDayCurrentDay(dayOfWeek) ? .japandiMintGreen : .japandiDarkGray))
             Circle()
                 .frame(width: diameter)
-                .foregroundColor(dateEntry.weight == NONEXISTENT_WEIGHT ? !isDayOfWeekAfterCurrentDay(dayOfWeek) && !isPriorWeek ? .japandiRed : .japandiLightBrown : .japandiMintGreen)
+                .foregroundColor(dateEntry.weight == NONEXISTENT_WEIGHT ? (!isDayOfWeekAfterCurrentDay(dayOfWeek) && !isPriorWeek) || isPriorWeek ? .japandiRed : .japandiLightBrown : .japandiMintGreen)
                 .overlay(
-                    (dateEntry.weight == NONEXISTENT_WEIGHT ? Text(" ") : getOverlayText(dateEntry.weight))
+                    (getOverlayText())
                         .overlay(
                             GeometryReader { geometry in
                                 Path { path in
@@ -38,37 +39,33 @@ struct DayBubble: View {
                             }
                         )
                 )
-            HStack {
-                if ![NONEXISTENT_WEIGHT, nil].contains(dateEntry.calories) {
-                    Text("\(formatFloat(dateEntry.calories!))")
-                } else {
-                    Text(" ")
-                }
-            }
-            .font(.custom("JapandiRegular", size: 8))
-            .foregroundColor(Color(.japandiDarkGray))
+                .font(.custom("JapandiRegular", size: 8))
+                .foregroundColor(Color(.japandiDarkGray))
         }
-        .onAppear {
-            isPriorWeek = dateEntry.date < getSunday(for: Date())
+        .onAppear { isPriorWeek = dateEntry.date < getSunday(for: Date()) }
+    }
+    
+    func getOverlayText() -> Text {
+        if [nil, NONEXISTENT_CALORIES].contains(dateEntry.calories) || dateEntry.weight == NONEXISTENT_WEIGHT {
+            return Text(" ")
         }
+            
+        return Text(unitDisplay == .Calories ? "\(dateEntry.calories!)" : formatFloat(dateEntry.weight))
+            .foregroundColor(Color("JapandiOffWhite"))
+            .font(.custom("JapandiRegular", size: 13))
     }
 }
 
-
 func isDayOfWeekAfterCurrentDay(_ day: Int) -> Bool {
     let date = getSunday(for: Date()).addingTimeInterval(TimeInterval((day - 1) * 24 * 60 * 60))
-    return date.compare(Date()) == .orderedDescending
+    let result = date.compare(Date()) == .orderedDescending
+    return result
 }
 
 func isDayCurrentDay(_ day: Int) -> Bool {
     return day == Calendar.current.component(.weekday, from: Date.now)
 }
 
-func getOverlayText(_ weight: Float) -> Text {
-    return Text("\(formatFloat(weight))")
-        .foregroundColor(Color("JapandiOffWhite"))
-        .font(.custom("JapandiRegular", size: 15))
-}
 
 func dayOfWeekString(_ day: Int) -> String {
     let dateFormatter = DateFormatter()

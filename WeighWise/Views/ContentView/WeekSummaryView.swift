@@ -146,7 +146,7 @@ struct WeekSummaryView: View {
     func generateSummary() -> Void {
         let calendar = Calendar.current
         
-        if let weekAverage = try? calculateAverage(of: getCurrentWeeksWeights(weights)) {
+        if let weekAverage = try? calcAverageWeight(of: getCurrentWeeksWeights(weights)) {
             let lastWeekHasWeightsLogged = weights.contains { calendar.startOfDay(for: $0.date) < getSunday(for: Date())}
             if lastWeekHasWeightsLogged {
                 let weightToCompareTo = lastWeekHasWeightsLogged ?  getLastWeeksAverage() : weekAverage
@@ -169,7 +169,7 @@ struct WeekSummaryView: View {
         let lastWeeksSunday = Calendar.current.date(byAdding: .day, value: -13, to: Date())!
         let lastWeeksWeights = weights.filter { calendar.startOfDay(for: $0.date) > calendar.startOfDay(for: lastWeeksSunday) && $0.date < calendar.startOfDay(for: lastWeeksSaturday)}
         
-        return calculateAverage(of: lastWeeksWeights)
+        return calcAverageWeight(of: lastWeeksWeights)
     }
 }
 

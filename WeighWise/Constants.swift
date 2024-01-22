@@ -8,3 +8,4 @@
 import Foundation
 
 let NONEXISTENT_WEIGHT: Float = -1
+let NONEXISTENT_CALORIES: Int = -1

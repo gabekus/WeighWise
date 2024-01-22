@@ -9,13 +9,21 @@ import Foundation
 import SwiftUI
 import SwiftData
 
+enum UnitDisplay {
+    case Weight
+    case Calories
+}
+
 struct WeekView: View {
     @Environment(\.modelContext) private var context
-    @Query private var dateEntries: [DateEntry] = []
-    @State private var currentWeeksWeights: [DateEntry] = []
     @Environment(\.scenePhase) private var scenePhase
-    @State private var weekAverage: Float = 0
+    
+    @Query private var dateEntries: [DateEntry] = []
+    @State private var currentWeeksDateEntries: [DateEntry] = []
+    @State private var weekAverageWeight: Float = 0
+    @State private var weekAverageCalories: Int = 0
     @State private var headerText: String = ""
+    @State private var unitDisplay: UnitDisplay = .Weight
     
     var pastWeights: [DateEntry] = []
     
@@ -25,9 +33,9 @@ struct WeekView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    if !currentWeeksWeights.isEmpty {
+                    if !currentWeeksDateEntries.isEmpty {
                         ForEach(1...7, id: \.self) { i in
-                            DayBubble(dayOfWeek: i, dateEntry: currentWeeksWeights.indices.contains(i - 1) ? currentWeeksWeights[i - 1] : DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT))
+                            DayBubble( dayOfWeek: i, unitDisplay: unitDisplay, dateEntry: currentWeeksDateEntries.indices.contains(i - 1) ? currentWeeksDateEntries[i - 1] : DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_CALORIES))
                             
                         }
                     }
@@ -36,23 +44,26 @@ struct WeekView: View {
                     do {
                         if pastWeights.isEmpty {
                             var currentWeeksWeightsResult = try getCurrentWeeksWeights(dateEntries)
-                            currentWeeksWeights = []
+                            currentWeeksDateEntries = []
                             for i in 1...7 {
                                 if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
-                                    currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
+                                    currentWeeksDateEntries.append(currentWeeksWeightsResult.removeFirst())
                                 } else {
-                                    currentWeeksWeights.append(DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT))
+                                    currentWeeksDateEntries.append(DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_CALORIES))
                                 }
                             }
                         } else {
-                            currentWeeksWeights = pastWeights
+                            currentWeeksDateEntries = pastWeights
                         }
-                            let newWeekAverage = calculateAverage(of: currentWeeksWeights)
-                            weekAverage = newWeekAverage
+                        let newWeekAverageWeight = calcAverageWeight(of: currentWeeksDateEntries)
+                        let newWeekAverageCalories = calcAverageCalories(of: currentWeeksDateEntries)
+                        weekAverageWeight = newWeekAverageWeight
+                        weekAverageCalories = newWeekAverageCalories
+                        
                         if pastWeights.isEmpty {
                             headerText = "This Week's Average"
                         } else {
-                            headerText = "Average For \(formatDate(getSunday(for: pastWeights.first!.date)))"
+                            headerText = "\(formatDate(getSunday(for: pastWeights.first!.date)))"
                         }
                     } catch {
                         print("Error \(error)")
@@ -60,18 +71,19 @@ struct WeekView: View {
                 }
                 .onChange(of: scenePhase) {
                     do {
-                        if currentWeeksWeights.isEmpty {
+                        if currentWeeksDateEntries.isEmpty {
                             var currentWeeksWeightsResult = try getCurrentWeeksWeights(dateEntries)
-                            currentWeeksWeights = []
+                            currentWeeksDateEntries = []
                             for i in 1...7 {
                                 if currentWeeksWeightsResult.contains(where: { i ==  Calendar.current.component(.weekday, from: $0.date)}) {
-                                    currentWeeksWeights.append(currentWeeksWeightsResult.removeFirst())
+                                    currentWeeksDateEntries.append(currentWeeksWeightsResult.removeFirst())
                                 } else {
-                                    currentWeeksWeights.append(DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT))
+                                    currentWeeksDateEntries.append(DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_CALORIES))
                                 }
                             }
                         }
-                        weekAverage = calculateAverage(of: currentWeeksWeights)
+                        weekAverageWeight = calcAverageWeight(of: currentWeeksDateEntries)
+                        weekAverageCalories = calcAverageCalories(of: currentWeeksDateEntries)
                     } catch {
                         print("Error \(error)")
                     }
@@ -83,37 +95,57 @@ struct WeekView: View {
             .background(.japandiOffWhite)
             
             VStack {
-               
-                Text(headerText).font(.custom("JapandiRegular", size: 25)).foregroundColor(.japandiDarkGray)
+                Text(headerText)
+                    .font(.custom("JapandiRegular", size: 25))
+                    .foregroundColor(.japandiDarkGray)
                     .padding(50)
                     .kerning(1)
                 HStack {
-                    Text("\(formatFloat(weekAverage))").font(.custom("JapandiBold", size: 85))
+                    Text(unitDisplay == .Weight ? formatFloat(weekAverageWeight) : "\(weekAverageCalories)")
+                        .font(.custom("JapandiBold", size: 85))
                     +
-                    Text(" lbs").font(.custom("JapandiRegular", size: 18))
+                    Text("\(unitDisplay == .Weight ? " lbs" : "cals")")
+                        .font(.custom("JapandiRegular", size: 18))
                         .kerning(1)
                 }
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .onTapGesture { swapUnits() }
+                .sensoryFeedback(.success, trigger: unitDisplay)
                 .foregroundColor(.japandiDarkGray)
                 Spacer()
             }
-            
         }
+    }
+    
+    func swapUnits() {
+        unitDisplay = unitDisplay == .Weight ? .Calories : .Weight
     }
     
     func formatDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd yyyy"
-
-        let currentDate = Date()
+        
         let formattedDate = dateFormatter.string(from: date)
         return formattedDate
     }
 }
 
-
-func calculateAverage(of array: [DateEntry]) -> Float {
+func calcAverageWeight(of array: [DateEntry]) -> Float {
     let nonNilWeights = array.compactMap { $0.weight > 0 ? $0.weight : nil }
     let average = nonNilWeights.isEmpty ? nil : nonNilWeights.reduce(0, +) / Float(nonNilWeights.count)
+    
+    return average ?? 0
+}
+
+func calcAverageCalories(of array: [DateEntry]) -> Int {
+    let nonNilCalories: [Int] = array.compactMap {
+        guard let calories = $0.calories else {
+            return nil
+        }
+        
+        return calories > 0 ? calories : nil
+    }
+    let average = nonNilCalories.isEmpty ? nil : nonNilCalories.reduce(0, +) / nonNilCalories.count
     
     return average ?? 0
 }

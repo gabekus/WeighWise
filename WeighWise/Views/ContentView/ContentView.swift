@@ -37,47 +37,53 @@ struct ContentView: View {
                         }
                     }
                 } else if entryStep == .WeightEntry {
-                    NumberEntryView(headerText: "Enter Weight") { weight in
-                        entryStep = .CalorieEntry
-                        addDateEntry(weight, nil)
-                    }
+                    NumberEntryView<Float>(headerText: "Enter Weight") { weight in handleWeightEntered(weight) }
                 } else {
-                    NumberEntryView(headerText: "Enter Calories") { calories in
-                        entryStep = .WeightAndCaloriesEnteredToday
-                        let todaysWeight = dateEntries.last!.weight
-                        addDateEntry(todaysWeight, calories)
-                        if isTodaySaturday() && fullWeekLogged() {
-                            showWeekSummary = true
-                        }
-                    }
+                    NumberEntryView<Int>(headerText: "Enter Yesterday's Calories") { calories in handleCaloriesEntered(calories) }
                 }
             }
             .background(.japandiOffWhite)
             .onAppear {
-                #if DEBUG
+#if DEBUG
                 //                guard !dateEntries.isEmpty else {
                 //                    return
                 //                }
-//                                clearWeights()
-//                                seedData()
-                #endif
+//                                                clearWeights()
+//                                                seedData()
+#endif
                 entryStep = getEntryStep()
             }
             .onChange(of: scenePhase) { _, _ in entryStep = getEntryStep() }
         }
     }
     
+    func handleWeightEntered(_ weight: Float) {
+        entryStep = .CalorieEntry
+        addDateEntry(weight, nil)
+    }
+    
+    func handleCaloriesEntered(_ calories: Int) {
+        entryStep = .WeightAndCaloriesEnteredToday
+        let todaysWeight = dateEntries.last!.weight
+        addDateEntry(todaysWeight, calories)
+        if isTodaySaturday() && fullWeekLogged() {
+            showWeekSummary = true
+        }
+
+    }
     
     func seedData() {
+        #if DEBUG
         print("Seeding weights")
-        let weight = DateEntry(100, 1500)
-        weight.date = Calendar.current.date(byAdding: .day, value: -1, to: weight.date)!
-        context.insert(weight)
-        //        for i in 0...30 {
-        //            let weight = Weight(Float(Int.random(in: 135..<145)))
-        //            weight.date = Calendar.current.date(byAdding: .day, value: -i, to: weight.date)!
-        //            context.insert(weight)
-        //        }
+//        let dateEntry = DateEntry(100, 1500)
+//        weight.date = Calendar.current.date(byAdding: .day, value: , to: weight.date)!
+//        context.insert(dateEntry)
+                for i in 1...30 {
+                    let dateEntry = DateEntry(Float(Int.random(in: 135..<145)), Int.random(in: 2500...3000))
+                    dateEntry.date = Calendar.current.date(byAdding: .day, value: -i, to: dateEntry.date)!
+                    context.insert(dateEntry)
+                }
+        #endif
     }
     
     func isTodaySaturday() -> Bool {
@@ -92,8 +98,7 @@ struct ContentView: View {
         }
     }
     
-    func addDateEntry(_ weight: Float, _ calories: Float?) {
-        #if DEBUG
+    func addDateEntry(_ weight: Float, _ calories: Int?) {
         let calendar = Calendar.current
         
         if let lastDate = dateEntries.last?.date {
@@ -105,8 +110,10 @@ struct ContentView: View {
                 let newWeight = DateEntry(weight, calories)
                 context.insert(newWeight)
             }
+        } else {
+            let newWeight = DateEntry(weight, calories)
+            context.insert(newWeight)
         }
-        #endif
     }
     
     

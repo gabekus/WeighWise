@@ -11,9 +11,9 @@ import SwiftData
 @Model class DateEntry: Identifiable {
     var date: Date
     var weight: Float
-    var calories: Float?
+    var calories: Int?
     
-    init(_ weight: Float, _ calories: Float?, date: Date = Date()) {
+    init(_ weight: Float, _ calories: Int?, date: Date = Date()) {
         self.date = date
         self.weight = weight
         self.calories = calories

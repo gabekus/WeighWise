@@ -28,7 +28,7 @@ struct OnboardingView: View {
             VStack {
                 switch(step) {
                 case .WeightEntry:
-                    NumberEntryView(headerText: "Enter current weight") { weight in
+                    NumberEntryView<Float>(headerText: "Enter current weight") { weight in
                         step = OnboardingStep.GoalDirectionEntry
                         startingWeight = weight
                     }
@@ -86,7 +86,7 @@ struct OnboardingView: View {
                     }
                     
                 case .GoalPoundsEntry:
-                    NumberEntryView(headerText: "Goal per week to  \(goalDirection == .WeightGain ? "gain" : "lose")(lbs)") { weight in
+                    NumberEntryView<Float>(headerText: "Goal per week to  \(goalDirection == .WeightGain ? "gain" : "lose")(lbs)") { weight in
                         goalPoundsPerWeek = weight
                         upsertGoal()
                         step = .Onboarded

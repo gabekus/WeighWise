@@ -18,7 +18,7 @@ struct WeekBubble: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: .infinity)
-                .fill(isFullWeek ? .japandiMintGreen : .japandiRed)
+                .fill(isFullWeek ? .japandiMintGreen : isDayInCurrentWeek(dateEntries.first!.date) ? .japandiLightBrown : .japandiRed)
                 .overlay (
                     ZStack {
                         HStack {
@@ -64,6 +64,10 @@ struct WeekBubble: View {
 //                    .padding(.trailing, 7)
 //            }
         }
+    }
+    
+    func isDayInCurrentWeek(_ date: Date) -> Bool {
+        return getSunday(for: Date()) == getSunday(for: date)
     }
     
     func formatDate(_ date: Date) -> String {

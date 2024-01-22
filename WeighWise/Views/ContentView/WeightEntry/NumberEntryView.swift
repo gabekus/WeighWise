@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct NumberEntryView: View {
+struct NumberEntryView<T: LosslessStringConvertible>: View {
     @Environment(\.modelContext) private var context
     @State var weightInput: String = ""
     @Query private var weights: [DateEntry] = []
     
     var headerText: String
-    var callback: (Float) -> Void
+    var callback: (T) -> Void
     
     var body: some View {
         ZStack {
@@ -119,8 +119,8 @@ struct NumberEntryView: View {
     
     
     func onSubmit() {
-        if let weightInputFloat = Float(weightInput) {
-            callback(weightInputFloat)
+        if let weightCast = T(weightInput) {
+            callback(weightCast)
         }
     }
     

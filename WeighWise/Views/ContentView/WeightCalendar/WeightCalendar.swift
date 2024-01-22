@@ -14,6 +14,7 @@ struct WeightCalendar: View {
     @Environment(\.modelContext) private var context
     @Query private var weights: [DateEntry]
     @Query private var goal: [Goal]
+    @State private var weekBubbleTrigger: Bool = false
     
     var body: some View {
         NavigationView {
@@ -76,14 +77,14 @@ struct WeightCalendar: View {
         let lastWeeksSunday = Calendar.current.date(byAdding: .day, value: -13, to: Date())!
         let lastWeeksWeights = weights.filter { calendar.startOfDay(for: $0.date) > calendar.startOfDay(for: lastWeeksSunday) && $0.date < calendar.startOfDay(for: lastWeeksSaturday)}
         
-        return calculateAverage(of: lastWeeksWeights)
+        return calcAverageWeight(of: lastWeeksWeights)
     }
     
     func didMeetGoal() -> Bool {
         
         let calendar = Calendar.current
         
-        if let weekAverage = try? calculateAverage(of: getCurrentWeeksWeights(weights)) {
+        if let weekAverage = try? calcAverageWeight(of: getCurrentWeeksWeights(weights)) {
             let lastWeekHasWeightsLogged = weights.contains { calendar.startOfDay(for: $0.date) < getSunday(for: Date())}
             guard !lastWeekHasWeightsLogged && goal.isEmpty else {
                 return false
@@ -229,7 +230,7 @@ struct WeightCalendar: View {
             }
         }
         
-        let nonexistentWeights = missingDays.map { DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_WEIGHT, date: $0!) }
+        let nonexistentWeights = missingDays.map { DateEntry(NONEXISTENT_WEIGHT, NONEXISTENT_CALORIES, date: $0!) }
         
         return nonexistentWeights
     }
@@ -238,6 +239,7 @@ struct WeightCalendar: View {
         return weights.reduce(0.0) { $0 + $1.weight } / Float(weights.filter { $0.weight != NONEXISTENT_WEIGHT}.count)
     }
 }
+
 
 #Preview {
     WeightCalendar()
